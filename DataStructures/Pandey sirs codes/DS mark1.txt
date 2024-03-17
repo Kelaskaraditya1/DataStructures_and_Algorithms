@@ -1,0 +1,1481 @@
+exp 1: implementing Stack Adt
+
+#include<stdio.h>
+int top=-1,STK[20],size=20,choice,val1,x,y;
+int empty()
+{
+    if(top==-1)
+    return 1;
+    else
+   return 0;
+}
+int full()
+{
+    if(top==(size-1))
+   return 1;
+    else
+    return 0;
+}
+void push(int val)
+{
+    if(full())
+    printf("Stack is full \n");
+    else
+    {
+        STK[++top]=val;
+    }
+}
+int pop()
+{
+    int val;
+    if(empty())
+    printf("Stack is empty \n");
+    else
+    {
+        val=STK[top--];
+          printf("The value popped out of the Stack is %d \n",val);
+    }
+}
+void display()
+{
+    if(empty())
+    printf("Stack is empty \n");
+    else
+    {
+    int i=top;
+    while(i!=-1)
+    {
+        printf("%d \n",STK[i]);
+        i--;
+    }
+    }
+}
+void stktop()
+{
+    if(empty())
+    printf("Stack is empty \n");
+    else
+    printf("%d \n",STK[top]);
+}
+int main()
+{
+    while(choice!=7)
+    {
+        printf("enter Your Choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("Enter the element to be entered in th Stack \n");
+            scanf("%d",&val1);
+            push(val1);
+            break;
+            case 2:
+            pop();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            stktop();
+            break;
+            case 5:
+            x=full();
+            if(x==1)
+            printf("Stack is full \n");
+            else
+            printf("Stack is not full \n");
+            break;
+            case 6:
+            y=empty();
+             if(y==1)
+            printf("Stack is empty \n");
+            else
+            printf("Stack is not empty \n");
+            break;
+            case 7:
+            break;
+        }
+        
+    }
+    return 0;
+}
+
+exp :02 infix to postfix
+
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+int top=-1,size=20,l,p=0,x,y,a,i;
+char STK[20],in[20],po[20],ip;
+int empty()
+{
+    if(top==-1)
+    return 1;
+    else
+   return 0;
+}
+int full()
+{
+    if(top==(size-1))
+   return 1;
+    else
+    return 0;
+}
+void push(char n)
+{
+    if(full())
+    printf("Stack is full \n");
+    else
+    STK[++top]=n;
+}
+char pop()
+{
+    char n;
+    if(empty())
+    printf("Stack is empty \n");
+    else
+    {
+        n=STK[top--];
+        return n;
+    }
+}
+int priority(char n)
+{
+    switch(n)
+    {
+        case '+':
+        case '-':
+        return 1;
+        break;
+        case '(':
+        case ')':
+        return 0;
+        break;
+        case '*':
+        case '/':
+        case '%':
+        return 2;
+        break;
+    }
+}
+int main()
+{
+    printf("Enter the Infix Expression \n");
+    scanf("%s",in);
+    l=strlen(in);
+    for(i=0;i<l;i++)
+    {
+        ip=in[i];
+        if(isdigit(ip))
+        po[p++]=ip;
+        else
+        {
+            switch(ip)
+            {
+                case '(':
+                push(ip);
+                break;
+                case ')':
+                while(STK[top]!='(')
+                po[p++]=pop();
+                break;
+                case '+':
+                 case '-':
+                  case '*':
+                   case '/':
+                    case '%':
+                    if(empty())
+                    push(ip);
+                    else
+                    {
+                        x=priority(ip);
+                        y=priority(STK[top]);
+                        if((!empty())&&(x<=y))
+                        {
+                            po[p++]=pop();
+                            push(ip);
+                        }
+                        if((!empty())&&(x>y))
+                        push(ip);
+                    }
+                    break;
+            }
+        }
+    }
+    while(!empty())
+    {
+        a=pop();
+        if(a=='(')
+        continue;
+        else
+        po[p++]=a;
+    }
+    printf("The Postfix Expression is %s \n",po);
+    return 0;
+}
+
+exp : 03 evaluation of postfix
+
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+int top=-1,size=20,l,a,b,temp,i;
+char STK[20],po[20],ip;
+int empty()
+{
+    if(top==-1)
+    return 1;
+    else
+   return 0;
+}
+int full()
+{
+    if(top==(size-1))
+   return 1;
+    else
+    return 0;
+}
+void push(int val)
+{
+    if(full())
+    printf("Stack is full \n");
+    else
+    STK[++top]=val;
+}
+int pop()
+{
+    int val;
+    if(empty())
+    printf("Stack is empty \n");
+    else
+{
+    val=STK[top--];
+    return val;
+}
+}
+int main()
+{
+    printf("Enter Your Postfix Expression \n");
+    scanf("%s",po);
+    l=strlen(po);
+    for(i=0;i<l;i++)
+    {
+        ip=po[i];
+        if(isdigit(ip))
+        {
+            ip=ip-48;
+            push(ip);
+        }
+        else
+        {  a=pop();
+                b=pop();
+            switch(ip)
+            {
+                case '+':
+                temp=b+a;
+                push(temp);
+                break;
+                 case '-':
+                temp=b-a;
+                push(temp);
+                break;
+                 case '*':
+                temp=b*a;
+                push(temp);
+                break;
+                 case '/':
+                temp=b/a;
+                push(temp);
+                break;
+                 case '%':
+                temp=b%a;
+                push(temp);
+                break;
+            }
+        }
+    }
+    printf("The Evaluated value of the  Postfix expression is :%d \n",STK[top]);
+    return 0;
+}
+
+exp : 04 Queue Adt uding incrementing front
+
+#include<stdio.h>
+int Q[20],size=20,r=-1,f=-1,i,choice,val1,val2,x,y;
+int empty()
+{
+    if((r==-1)||(f>r))
+    return 2;
+    else
+    return 0;
+}
+int full()
+{
+    if(r==(size-1))
+    return 1;
+    else
+    return 0;
+}
+void enque(int val)
+{
+    if(full())
+    printf("Queue is Full \n");
+    else
+    {
+        if((r==-1)&&(f==-1))
+        {
+            f++;
+            Q[++r]=val;
+        }
+        else
+        Q[++r]=val;
+    }
+}
+int deque()
+{
+    if(empty())
+    printf("Queue is empty \n");
+    else
+  { 
+      int val;
+    val=Q[f++];
+     printf("The value dequeed from the queue is %d\n ",val);
+}
+}
+void display()
+{
+    if(empty())
+    printf(" Queue is empty \n");
+    else
+    {
+        for(i=f;i<=r;i++)
+        printf("%d \n",Q[i]);
+    }
+}
+int main()
+{
+    while(choice!=5)
+    {
+    printf("Enter Your choice \n");
+    scanf("%d",&choice);
+    switch(choice)
+    {
+        case 1:
+        printf("Enter the value to be entered in the Queue \n");
+        scanf("%d",&val1);
+        enque(val1);
+        break;
+        case 2:
+        deque();
+        break;
+        case 3:
+        display();
+        break;
+        case 4:
+        x=full();
+        if(x==1)
+        printf("Queue is Full \n");
+        else
+        printf("Queue is not full \n");
+        break;
+           case 5:
+        y=empty();
+        if(y==1)
+        printf("Queue is Empty \n");
+        else
+        printf("Queue is not Empty \n");
+        break;
+        case 6:
+        break;
+        }
+    }
+    return 0;
+}
+
+exp : 04 using decrementing rare
+#include<stdio.h>
+int Q[20],size=20,r=-1,f=-1,i,choice,val1,val2,x,y;
+int empty()
+{
+    if((r==-1)||(f>r))
+    return 2;
+    else
+    return 0;
+}
+int full()
+{
+    if(r==(size-1))
+    return 1;
+    else
+    return 0;
+}
+void enque(int val)
+{
+    if(full())
+    printf("Queue is Full \n");
+    else
+    {
+        if((r==-1)&&(f==-1))
+        {
+            f++;
+            Q[++r]=val;
+        }
+        else
+        Q[++r]=val;
+    }
+}
+int deque()
+{
+    if(empty())
+    printf("Queue is empty \n");
+    else
+  { 
+      int val,i;
+      printf("The value dequeed from the Queue is %d \n",Q[f]);
+      for(i=0;i<r;i++)
+      Q[i]=Q[i+1];
+      r--;
+}
+}
+void display()
+{
+    if(empty())
+    printf(" Queue is empty \n");
+    else
+    {
+        for(i=f;i<=r;i++)
+        printf("%d \n",Q[i]);
+    }
+}
+int main()
+{
+    while(choice!=5)
+    {
+    printf("Enter Your choice \n");
+    scanf("%d",&choice);
+    switch(choice)
+    {
+        case 1:
+        printf("Enter the value to be entered in the Queue \n");
+        scanf("%d",&val1);
+        enque(val1);
+        break;
+        case 2:
+        deque();
+        break;
+        case 3:
+        display();
+        break;
+        case 4:
+        x=full();
+        if(x==1)
+        printf("Queue is Full \n");
+        else
+        printf("Queue is not full \n");
+        break;
+           case 5:
+        y=empty();
+        if(y==1)
+        printf("Queue is Empty \n");
+        else
+        printf("Queue is not Empty \n");
+        break;
+        case 6:
+        break;
+        }
+    }
+    return 0;
+}
+
+exp : 05 circular Queue
+
+#include<stdio.h>
+int Q[20],size=20,r=-1,f=-1,i,choice,val1,val2,x,y;
+int empty()
+{
+    if((r==-1)||(f>r))
+    return 2;
+    else
+    return 0;
+}
+int full()
+{
+    if(r==(size-1))
+    return 1;
+    else
+    return 0;
+}
+void enque(int val)
+{
+ if(((r==-1)&&(f==-1))||(f>r))
+{
+    f++;
+ Q[++r]=val;
+}
+else if(((r+1)%size)==f)
+printf("Queue is Full \n");
+else
+{
+    r=(r+1)%size;
+    Q[r]=val;
+}
+}
+int deque()
+{
+if(((r==-1)&&(f==-1))||(f>r))
+printf("Queue is empty \n");
+else if(f==r)
+{
+printf("The value dequed from the Queue is %d \n ",Q[f]);
+r=-1;
+f=-1;
+}
+else
+{
+ printf("The value dequed from the Queue is %d \n ",Q[f]);
+ f=(f+1)%size;
+}
+}
+void display()
+{
+    if(empty())
+    printf(" Queue is empty \n");
+    else
+    {
+        for(i=f;i<=r;i++)
+        printf("%d \n",Q[i]);
+    }
+}
+int main()
+{
+    while(choice!=5)
+    {
+    printf("Enter Your choice \n");
+    scanf("%d",&choice);
+    switch(choice)
+    {
+        case 1:
+        printf("Enter the value to be entered in the Queue \n");
+        scanf("%d",&val1);
+        enque(val1);
+        break;
+        case 2:
+        deque();
+        break;
+        case 3:
+        display();
+        break;
+        case 4:
+        x=full();
+        if(x==1)
+        printf("Queue is Full \n");
+        else
+        printf("Queue is not full \n");
+        break;
+           case 5:
+        y=empty();
+        if(y==1)
+        printf("Queue is Empty \n");
+        else
+        printf("Queue is not Empty \n");
+        break;
+        case 6:
+        break;
+        }
+    }
+    return 0;
+}
+
+exp : 06 linkedlist 1
+
+#include<stdio.h>
+#include<stdlib.h>
+int choice,val1,val2;
+struct node
+{
+    int data;
+    struct node*next;
+};
+struct node *start=NULL;
+void createsll(int val)
+{
+    struct node *nn,*tn;
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=val;
+    nn->next=NULL;
+    if(start==NULL)
+    start=nn;
+    else
+    {
+        tn=start;
+        while(tn->next!=NULL)
+        tn=tn->next;
+        tn->next=nn;
+    }
+}
+void insertbeg(int val)
+{
+    struct node *nn,*tn;
+    if(start==NULL)
+    printf("No linkedlist \n");
+    else
+    {
+        nn=(struct node*)malloc(sizeof(struct node));
+        nn->data=val;
+        nn->next=start;
+        start=nn;
+    }
+}
+void display()
+{
+    struct node *tn,*nn;
+    if(start==NULL)
+    printf("No linkedlist \n");
+    else
+    {
+        int i=1;
+        tn=start;
+        while(tn!=NULL)
+        {
+            printf("The value at the %d position is %d \n",i++,tn->data);
+            tn=tn->next;
+        }
+    }
+}
+int main()
+{
+    while(choice!=4)
+    {
+        printf("Enter Your choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("enter the value to be entered in the linkedlist \n");
+            scanf("%d",&val1);
+            createsll(val1);
+            break;
+            case 2:
+            printf("Enter the value to be entered at the beginning of the linkedlist \n");
+            scanf("%d",&val2);
+            insertbeg(val2);
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            break;
+        }
+    }
+    return 0;
+}
+ 
+exp : 07 insert middle
+#include<stdio.h>
+#include<stdlib.h>
+int choice,val1,val2,snv,k;
+struct node
+{
+    int data;
+    struct node*next;
+};
+struct node *start=NULL;
+void createsll(int val)
+{
+    struct node *nn,*tn;
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=val;
+    nn->next=NULL;
+    if(start==NULL)
+    start=nn;
+    else
+    {
+        tn=start;
+        while(tn->next!=NULL)
+        tn=tn->next;
+        tn->next=nn;
+    }
+}
+int insmid(int snv,int val)
+{
+    struct node *nn,*tn;
+    if(start==NULL)
+    printf(" no Linkedlist \n");
+    else
+    {
+        tn=start;
+        while(tn!=NULL)
+        {
+            if(tn->data==snv)
+            {
+                  nn=(struct node*)malloc(sizeof(struct node));
+        nn->data=val;
+        nn->next=tn->next;
+        tn->next=nn;
+         return 1;
+            }
+            else
+            tn=tn->next;
+        }
+    }
+}
+void display()
+{
+    struct node *tn,*nn;
+    if(start==NULL)
+    printf("No linkedlist \n");
+    else
+    {
+        int i=1;
+        tn=start;
+        while(tn!=NULL)
+        {
+            printf("The value at the %d position is %d \n",i++,tn->data);
+            tn=tn->next;
+        }
+    }
+}
+int main()
+{
+    while(choice!=4)
+    {
+        printf("Enter Your choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("enter the value to be entered in the linkedlist \n");
+            scanf("%d",&val1);
+            createsll(val1);
+            break;
+            case 2:
+            printf("Enter after which value you will add the value and the what is the new value  \n");
+            scanf("%d%d",&val2,&snv);
+            k=insmid(snv,val2);
+            if(k==1)
+            printf("value added sucessfully after %d \n",snv);
+            else
+            printf("Value not found \n");
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            break;
+        }
+    }
+    return 0;
+}
+
+exp : 08 insert end
+
+#include<stdio.h>
+#include<stdlib.h>
+int choice,val1,val2;
+struct node
+{
+    int data;
+    struct node*next;
+};
+struct node *start=NULL;
+void createsll(int val)
+{
+    struct node *nn,*tn;
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=val;
+    nn->next=NULL;
+    if(start==NULL)
+    start=nn;
+    else
+    {
+        tn=start;
+        while(tn->next!=NULL)
+        tn=tn->next;
+        tn->next=nn;
+    }
+}
+void insend(int val)
+{
+    struct node *nn,*tn;
+ if(start==NULL)
+ printf("No Linkedlist \n");
+ else
+ {
+        nn=(struct node*)malloc(sizeof(struct node));
+     nn->data=val;
+      tn=start;
+     while(tn->next!=NULL)
+     tn=tn->next;
+        tn->next=nn;
+     nn->next=NULL;
+ }
+}
+void display()
+{
+    struct node *tn,*nn;
+    if(start==NULL)
+    printf("No linkedlist \n");
+    else
+    {
+        int i=1;
+        tn=start;
+        while(tn!=NULL)
+        {
+            printf("The value at the %d position is %d \n",i++,tn->data);
+            tn=tn->next;
+        }
+    }
+}
+int main()
+{
+    while(choice!=4)
+    {
+        printf("Enter Your choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("enter the value to be entered in the linkedlist \n");
+            scanf("%d",&val1);
+            createsll(val1);
+            break;
+            case 2:
+            printf("Enter the value to be entered at the last of the Linkedlist \n");
+            scanf("%d",&val2);
+            insend(val2);
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            break;
+        }
+    }
+    return 0;
+}
+
+
+exp : 09 del beg
+
+#include<stdio.h>
+#include<stdlib.h>
+int choice,val1,val2;
+struct node
+{
+    int data;
+    struct node*next;
+};
+struct node *start=NULL;
+void createsll(int val)
+{
+    struct node *nn,*tn;
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=val;
+    nn->next=NULL;
+    if(start==NULL)
+    start=nn;
+    else
+    {
+        tn=start;
+        while(tn->next!=NULL)
+        tn=tn->next;
+        tn->next=nn;
+    }
+}
+void delbeg()
+{
+    if(start==NULL)
+    printf("No Linkedlist \n");
+    else
+    {
+    struct node *temp;
+    temp=start;
+    start=start->next;
+    free(temp);
+    }
+}
+void display()
+{
+    struct node *tn,*nn;
+    if(start==NULL)
+    printf("No linkedlist \n");
+    else
+    {
+        int i=1;
+        tn=start;
+        while(tn!=NULL)
+        {
+            printf("The value at the %d position is %d \n",i++,tn->data);
+            tn=tn->next;
+        }
+    }
+}
+int main()
+{
+    while(choice!=4)
+    {
+        printf("Enter Your choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("enter the value to be entered in the linkedlist \n");
+            scanf("%d",&val1);
+            createsll(val1);
+            break;
+            case 2:
+            delbeg();
+            printf(" 1 st value removed from the linkedlist sucessfully \n");
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            break;
+        }
+    }
+    return 0;
+}
+
+
+exp 10: del mid
+
+#include<stdio.h>
+#include<stdlib.h>
+int choice,val1,val2,val,k;
+struct node
+{
+    int data;
+    struct node*next;
+};
+struct node *start=NULL;
+void createsll(int val)
+{
+    struct node *nn,*tn;
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=val;
+    nn->next=NULL;
+    if(start==NULL)
+    start=nn;
+    else
+    {
+        tn=start;
+        while(tn->next!=NULL)
+        tn=tn->next;
+        tn->next=nn;
+    }
+}
+int delmid(int val)
+{
+    if(start==NULL)
+    printf("No Linkedlist \n");
+    else
+    {
+    struct node *temp,*tn;
+    tn=start;
+    while(tn!=NULL)
+    {
+     if(tn->next->data==val)
+     {
+         temp=tn->next;
+         tn->next=temp->next;
+         free(temp);
+         return 1;
+    }
+    else
+    tn=tn->next;
+    }
+}
+}
+void display()
+{
+    struct node *tn,*nn;
+    if(start==NULL)
+    printf("No linkedlist \n");
+    else
+    {
+        int i=1;
+        tn=start;
+        while(tn!=NULL)
+        {
+            printf("The value at the %d position is %d \n",i++,tn->data);
+            tn=tn->next;
+        }
+    }
+}
+int main()
+{
+    while(choice!=4)
+    {
+        printf("Enter Your choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("enter the value to be entered in the linkedlist \n");
+            scanf("%d",&val1);
+            createsll(val1);
+            break;
+            case 2:
+    printf("Enter the value of the node to be deleted \n");
+    scanf("%d",&val);
+    k=delmid(val);
+    if(k==1)
+    printf("Value %d deleted sucessfully \n",val);
+    else
+    printf("Value not found in the Linkedlist \n");
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            break;
+        }
+    }
+    return 0;
+}
+
+exp 11: del end
+
+
+#include<stdio.h>
+#include<stdlib.h>
+int choice,val1,val2,val,k;
+struct node
+{
+    int data;
+    struct node*next;
+};
+struct node *start=NULL;
+void createsll(int val)
+{
+    struct node *nn,*tn;
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=val;
+    nn->next=NULL;
+    if(start==NULL)
+    start=nn;
+    else
+    {
+        tn=start;
+        while(tn->next!=NULL)
+        tn=tn->next;
+        tn->next=nn;
+    }
+}
+void delend()
+{
+    struct node *tn,*temp;
+    if(start==NULL)
+    printf("No Linkedlist \n");
+    else
+    {
+        tn=start;
+        while(tn->next->next!=NULL)
+        tn=tn->next;
+        temp=tn->next;
+        tn->next=NULL;
+        free(temp);
+}
+}
+void display()
+{
+    struct node *tn,*nn;
+    if(start==NULL)
+    printf("No linkedlist \n");
+    else
+    {
+        int i=1;
+        tn=start;
+        while(tn!=NULL)
+        {
+            printf("The value at the %d position is %d \n",i++,tn->data);
+            tn=tn->next;
+        }
+    }
+}
+int main()
+{
+    while(choice!=4)
+    {
+        printf("Enter Your choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("enter the value to be entered in the linkedlist \n");
+            scanf("%d",&val1);
+            createsll(val1);
+            break;
+            case 2:
+    delend();
+    printf("Value present at the last deleted sucessfully \n");
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            break;
+        }
+    }
+    return 0;
+}
+
+
+exp 12 : circular sll // segmentation error , no output
+
+ #include<stdio.h>
+#include<stdlib.h>
+int val1,val2,choice;
+struct node
+{
+    int data;
+    struct node*next;
+};
+struct node *start=NULL;
+void createcsll(int val)
+{
+    struct node *nn,*tn;
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=val;
+    nn->next=NULL;
+    if(start==NULL)
+    start=nn;
+    else
+    {
+        tn=start;
+        while(tn->next!=NULL)
+        tn=tn->next;
+        tn->next=nn;
+        nn->next=start;
+    }
+}
+void insbeg(int val)
+{
+    struct node *tn,*nn;
+    if(start==NULL)
+    printf("No Linkedlist \n");
+    else
+    {
+        nn=(struct node*)malloc(sizeof(struct node));
+        nn->data=val;
+        nn->next=start;
+        while(tn->next!=start)
+        tn=tn->next;
+        tn->next=nn;
+        start=nn;
+    }
+}
+void display()
+{
+    struct node *tn,*nn;
+    if(start==NULL)
+    printf("No linkedlist \n");
+    else
+    {
+        int i=1;
+        tn=start;
+        while(tn->next!=start)
+        printf("the value at %d postion is %d \n",i++,tn->data);
+         printf("the value at %d postion is %d \n",i++,tn->data);
+        
+    }
+}
+int main()
+{
+    while(choice!=4)
+    {
+        printf("Enter Your choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("enter the value to be entered in the linkedlist \n");
+            scanf("%d",&val1);
+            createcsll(val1);
+            break;
+            case 2:
+            printf("Enter the value to be entered at the beginning of the linkedlist \n");
+            scanf("%d",&val2);
+            insbeg(val2);
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            break;
+        }
+    }
+    return 0;
+}
+
+exp : 13 double linkedlist
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *prev;
+    struct node *next;
+};
+struct node *start=NULL;
+void createdll(int val)
+{
+    struct node *nn,*tn;
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=val;
+    nn->next=NULL;
+    if(start==NULL)
+    start=nn;
+    else
+    {
+        tn=start;
+        while(tn->next!=NULL)
+        tn=tn->next;
+        nn->next=NULL;
+        tn->next=nn;
+        nn->prev=tn;
+    }
+}
+void insbeg(int val)
+{
+    struct node *nn;
+    if(start==NULL)
+    printf(" No Linkedlist \n");
+    else
+    {
+        nn=(struct node*)malloc(sizeof(struct node));
+        nn->data=val;
+        nn->prev=NULL;
+        nn->next=start;
+        start=nn;
+    }
+}
+void display()
+{
+    struct node *tn,*nn;
+    if(start==NULL)
+    printf("No linkedlist \n");
+    else
+    {
+        int i=1;
+        tn=start;
+        while(tn!=NULL)
+        {
+            printf("The value at the %d position is %d \n",i++,tn->data);
+            tn=tn->next;
+        }
+    }
+}
+int main()
+{
+    int choice,val1,val2;
+    while(choice!=4)
+    {
+        printf("Enter your choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("Enter the value to be entered into the Linkedlist \n");
+            scanf("%d",&val1);
+            createdll(val1);
+            break;
+            case 2:
+            printf("Enter the value to be entered at the beginning of the Linkedlist \n");
+            scanf("%d",&val2);
+            insbeg(val2);
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            break;
+        }
+    }
+    return 0;
+}
+
+exp 13: Stack using Linkedlist
+
+#include<stdio.h>
+#include<stdlib.h>
+int choice,val;
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *top=NULL;
+void push(int val)
+{
+    struct node *nn;
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=val;
+    nn->next=NULL;
+    if(top==NULL)
+    top=nn;
+    else
+    {
+        nn->next=top;
+        top=nn;
+    }
+}
+void pop()
+{
+    if(top==NULL)
+    printf(" Stack is Empty \n");
+    else
+    {
+        int d;
+        d=top->data;
+    struct node *temp;
+    temp=top;
+    top=temp->next;
+    free(temp);
+    printf("The value popped out of the Stack is %d \n",d);
+}
+}
+void display()
+{
+    if(top==NULL)
+    printf(" Stack is empty \n");
+    else
+    {
+        struct node *tn;
+        tn=top;
+        while(tn!=NULL)
+        {
+            printf("the value present is %d \n",tn->data);
+            tn=tn->next;
+        }
+    }
+}
+int main()
+{
+    while(choice!=4)
+    {
+        printf(" Enter your Choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf(" Enter the value to be entered into the Stack \n");
+            scanf("%d",&val);
+            push(val);
+            break;
+            case 2:
+            pop();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            break;
+        }
+    }
+    return 0;
+}
+
+exp 15 : Queue using Linkedlist
+
+#include<stdio.h>
+#include<stdlib.h>
+int val,choice;
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *f=NULL,*r=NULL;
+void enque(int val)
+{
+    struct node *nn;
+    nn=(struct node*)malloc(sizeof(struct node));
+    nn->data=val;
+    nn->next=NULL;
+    if(r==NULL)
+    {
+        f=nn;
+        r=nn;
+    }
+    else
+    {
+        r->next=nn;
+        r=nn;
+    }
+}
+void deque()
+{
+    struct node *temp;
+    int d;
+    if(f==NULL)
+    printf(" Queue is empty \n");
+    else
+    {
+        d=f->data;
+        temp=f;
+        f=f->next;
+        free(temp);
+        printf(" The value Dequeed out from the Queue id %d \n",d);
+    }
+}
+void display()
+{
+    struct node *tn;
+      if(f==NULL)
+    printf(" Queue is empty \n");
+    else
+    {
+        tn=f;
+        while(tn!=NULL)
+        {
+            printf(" the value present is %d \n",tn->data);
+            tn=tn->next;
+        }
+    }
+    }
+int main()
+{
+    while(choice!=4)
+    {
+        printf(" Enter your Choice \n");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf(" Enter the value to be entered into the Queue \n");
+            scanf("%d",&val);
+            enque(val);
+            break;
+            case 2:
+            deque();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            break;
+        }
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -611,33 +611,106 @@ using namespace std;
 //     }
 //     return -1;
 // }
-int missing_number(vector<int> array)
-{
-    // Normal approach
-    for(int i=0;i<array.size();i++)
-    {
-        for(int j=i+1;j<array.size();j++)
-        {
-            if(array[i]>array[j])
-            swap(array[i],array[j]);
-        }
-    }
-    for(int i=0;i<array.size();i++)
-    {
-        if(!array[i]==i)
-        return i;
-    }
-    return array.size();
+// int missing_number(vector<int> array)
+// {
+//     // Normal approach
+//     for(int i=0;i<array.size();i++)
+//     {
+//         for(int j=i+1;j<array.size();j++)
+//         {
+//             if(array[i]>array[j])
+//             swap(array[i],array[j]);
+//         }
+//     }
+//     for(int i=0;i<array.size();i++)
+//     {
+//         if(!array[i]==i)
+//         return i;
+//     }
+//     return array.size();
     
-}
+// }
+// int missing_number(vector<int> &array)
+// {
+//     int missing=0;
+//     for(int i=0;i<array.size();i++)
+//     {
+//         for(int j=i+1;j<array.size();j++)
+//         {
+//             if(array[i]>array[j])
+//             swap(array[i],array[j]);
+//         }
+//     }
+//     int size=array[array.size()-1];
+//     for(int i=0;i<array.size();i++)
+//     missing=missing^array[i];
+//     for(int i=0;i<=size;i++)
+//     missing=missing^i;
+//     return missing;
+
+// }
+// vector<int> sort_positive_negative(vector<int> &array)
+// {
+//     // 2 pointer approach
+//     int i=0,j=0;
+//     while(j<array.size())
+//     {
+//         if(array[j]<0)
+//         swap(array[j++],array[i++]);
+//         else
+//         j++;
+//     }
+//     return array;
+// }
+// int duplicate_number(vector<int> array)
+// {
+//     // sort 
+//     for(int i=0;i<array.size();i++)
+//     {
+//         for(int j=i+1;j<array.size();j++)
+//         {
+            
+//         }
+//     }
+// }
+// int longest_subarray(vector<int> array,int key)
+// {
+//     int length=0;
+//     // for(int i=0;i<array.size();i++)
+//     // {
+//     //     for(int j=i;j<array.size();j++)
+//     //     {
+//     //         int sum=0;
+//     //         for(int k=i;k<=j;k++)
+//     //         sum+=array[k];
+//     //         if(sum==key)
+//     //         length=max(length,j-i+1);
+//     //     }
+//     // }
+//     int left=0,right=0,sum=0;
+//     while(right<array.size())
+//     {
+//         if(left<right)
+//         sum+=array[right++];
+//         if(sum==key)
+//         length=max(length,(right-left+1));
+//         while(sum>key&&left<right)
+//         sum-=array[left++];
+//     }
+//     return length;
+// }
 int main()
 {
-    int no,key;
-    cin>>no;
-    vector<int> array(no);
-    for(int i=0;i<no;i++)
-    cin>>array[i];
-    cout<<"The missing number is:"<<missing_number(array)<<endl;
+    // int no,key;
+    // cin>>no>>key;
+    // vector<int> array(no);
+    // for(int i=0;i<no;i++)
+    // cin>>array[i];
+    // cout<<"The longest subarray is "<<longest_subarray(array,key)<<endl;
+    // cout<<"After sorting the array"<<endl;
+    // for(int i=0;i<b.size();i++)
+    // cout<<b[i]<<" ";
+    // cout<<"The missing number is:"<<sort_positive_negative(array)<<endl;
     // int index=pivot_index(array);
     // if(index!=-1)
     // cout<<"The pivot index is:"<<index<<endl;
@@ -671,6 +744,5 @@ int main()
     //     cout<<b[i][j]<<" ";
     //     cout<<endl;
     // }
-
     return 0;
 }

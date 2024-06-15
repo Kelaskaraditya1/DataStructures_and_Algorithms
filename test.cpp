@@ -699,6 +699,49 @@ using namespace std;
 //     }
 //     return length;
 // }
+// bool binarySearch(vector<int> array,int l,int h,int target)
+// {
+//     sort(array.begin(),array.end());
+//     while(l<h)
+//     {
+//         int mid=(l+h)/2;
+//         if(array[mid]==target)
+//         return true;
+//         if(array[mid]<target)
+//         l=mid+1;
+//         else if(array[mid]>target)
+//         h=mid-1;
+//     }
+//     return false;
+// }
+// int binarySearch(vector<int> array,int low,int high,int target)
+// {
+//     if(low>high)
+//     return -1;
+//     int mid=(low+high)/2;
+//     if(array[mid]==target)
+//     return mid;
+//     else if(array[mid]>target)
+//     binarySearch(array,low,mid-1,target);
+//     else
+//     binarySearch(array,mid+1,high,target);
+// }
+int lowerBound(vector<int> array,int target)
+{
+    int low=0,high=array.size()-1,ans=-1;
+    while(low<=high)
+    {
+        int mid=(low+high)/2;
+        if(array[mid]>=target)
+        {
+            ans=array[mid];
+            high=mid-1;
+        }
+        else if(array[mid]<target)
+        low=mid+1;
+    }
+    return ans;
+}
 int main()
 {
     // int no,key;
@@ -744,5 +787,17 @@ int main()
     //     cout<<b[i][j]<<" ";
     //     cout<<endl;
     // }
+    int no,target;
+    cin>>no>>target;
+    vector<int> array(no);
+    for(int i=0;i<array.size();i++)
+    cin>>array[i];
+    // int index=binarySearch(array,0,no-1,target);
+    // if(index!=-1)
+    // cout<<"The element exists at "<<index<<endl;
+    // else
+    // cout<<"Element is no present"<<endl;
+    int lowbound=lowerBound(array,target);
+    cout<<lowbound<<endl;
     return 0;
 }

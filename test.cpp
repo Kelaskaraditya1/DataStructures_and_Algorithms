@@ -726,21 +726,43 @@ using namespace std;
 //     else
 //     binarySearch(array,mid+1,high,target);
 // }
-int lowerBound(vector<int> array,int target)
+// int lowerBound(vector<int> array,int target)
+// {
+//     int low=0,high=array.size()-1,ans=-1;
+//     while(low<=high)
+//     {
+//         int mid=(low+high)/2;
+//         if(array[mid]>=target)
+//         {
+//             ans=array[mid];
+//             high=mid-1;
+//         }
+//         else if(array[mid]<target)
+//         low=mid+1;
+//     }
+//     return ans;
+// }
+int bubbleSort(vector<int> &array)
 {
-    int low=0,high=array.size()-1,ans=-1;
-    while(low<=high)
+    for(int i=array.size()-1;i>=0;i--)
     {
-        int mid=(low+high)/2;
-        if(array[mid]>=target)
+        for(int j=0;j<i;j++)
         {
-            ans=array[mid];
-            high=mid-1;
+            if(array[j]>array[j+1])
+            swap(array[j],array[j+1]);
         }
-        else if(array[mid]<target)
-        low=mid+1;
     }
-    return ans;
+}
+int selectionSort(vector<int> &array)
+{
+    for(int i=0;i<array.size();i++)
+    {
+        int min=i;
+        for(int j=i+1;j<array.size();j++)
+        if(array[min]>array[j])
+        min=j;
+        swap(array[min],array[i]);
+    }
 }
 int main()
 {
@@ -787,17 +809,25 @@ int main()
     //     cout<<b[i][j]<<" ";
     //     cout<<endl;
     // }
-    int no,target;
-    cin>>no>>target;
-    vector<int> array(no);
-    for(int i=0;i<array.size();i++)
-    cin>>array[i];
+    // int no,target;
+    // cin>>no>>target;
+    // vector<int> array(no);
+    // for(int i=0;i<array.size();i++)
+    // cin>>array[i];
     // int index=binarySearch(array,0,no-1,target);
     // if(index!=-1)
     // cout<<"The element exists at "<<index<<endl;
     // else
     // cout<<"Element is no present"<<endl;
-    int lowbound=lowerBound(array,target);
-    cout<<lowbound<<endl;
+    // int lowbound=lowerBound(array,target);
+    // cout<<lowbound<<endl;
+    int no;
+    cin>>no;
+    vector<int> array(no);
+    for(int i=0;i<no;i++)
+    cin>>array[i];
+    selectionSort(array);
+    for(int i=0;i<array.size();i++)
+    cout<<array[i]<<" ";
     return 0;
 }

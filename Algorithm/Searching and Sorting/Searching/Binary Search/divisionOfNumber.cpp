@@ -3,26 +3,26 @@
 #include<vector>
 #include<cmath>
 using namespace std;
-float squareRoot(int square)
+int divide(int dividend,int divisor)
 {
-    int low=1,high=square;
-    float ans=1.0;
+    int low=1,high=dividend,ans=-1;
     while(low<=high)
     {
         int mid=(low+high)/2;
-        if((mid*mid)>square)
-        high=mid-1;
-        else{
+        if(mid*divisor<=dividend)
+        {
             ans=mid;
             low=mid+1;
         }
+        else
+        high=mid-1;
     }
     return ans;
 }
 int main()
 {
-    int no;
-    cin>>no;
-    cout<<"The square root is: "<<squareRoot(no);
+    int dividend,divisor;
+    cin>>dividend>>divisor;
+    cout<<divide(dividend,divisor);
     return 0;
 }

@@ -42,6 +42,7 @@ int binarySearch(vector<int> array,int low,int target)
 }
 set<pair<int,int>> usingBinarySearch(vector<int> array,int target)
 {
+    sort(array.begin(),array.end());
     set<pair<int,int>> set;
     for(int i=0;i<array.size();i++)
     {

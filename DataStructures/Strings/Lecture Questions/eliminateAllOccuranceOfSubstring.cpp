@@ -3,13 +3,14 @@
 #include<vector>
 #include<cmath>
 using namespace std;
-void eliminateAllOccurence(string str1,string str2)
+string eliminateAllOccurence(string str1,string str2)
 {
     while(str1.find(str2)!=string::npos)
     {
         int index=str1.find(str2);
         str1.erase(index,str2.length());
     }
+    return str1;
 }
 int main()
 {
@@ -18,7 +19,6 @@ int main()
     cin>>string1;
     cout<<"Enter the substring"<<endl;
     cin>>string2;
-    eliminateAllOccurence(string1,string2);
-    cout<<"The final string is:"<<string1<<endl;
+    cout<<"The final string is:"<<eliminateAllOccurence(string1,string2)<<endl;
     return 0;
 }

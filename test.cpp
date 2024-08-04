@@ -742,27 +742,76 @@ using namespace std;
 //     }
 //     return ans;
 // }
-int bubbleSort(vector<int> &array)
-{
-    for(int i=array.size()-1;i>=0;i--)
-    {
-        for(int j=0;j<i;j++)
-        {
-            if(array[j]>array[j+1])
-            swap(array[j],array[j+1]);
+// int bubbleSort(vector<int> &array)
+// {
+//     for(int i=array.size()-1;i>=0;i--)
+//     {
+//         for(int j=0;j<i;j++)
+//         {
+//             if(array[j]>array[j+1])
+//             swap(array[j],array[j+1]);
+//         }
+//     }
+// }
+// int selectionSort(vector<int> &array)
+// {
+//     for(int i=0;i<array.size();i++)
+//     {
+//         int min=i;
+//         for(int j=i+1;j<array.size();j++)
+//         if(array[min]>array[j])
+//         min=j;
+//         swap(array[min],array[i]);
+//     }
+// }
+string eliminateDuplicate(string str){
+    string ans="";
+    int i=0;
+    while(i<str.length()){
+        if(str[i]==ans.back())
+            ans.pop_back();
+        else
+            ans.push_back(str[i]);
+        i++;
+    }
+    return ans;
+}
+string removeAllOccurence(string str1,string str2){
+    while(str1.find(str2)!=string::npos){
+        int index=str1.find(str2);
+        str1.erase(index,str2.length());
+    }
+    return str1;
+}
+bool palindrome(string str){
+    int low=0,high=str.length()-1;
+    while(low<high){
+        if(str[low]==str[high])
+        low++,high--;
+        else
+        return false;
+    }
+    return true;
+}
+bool checkPalindrome(string str){
+    int low=0,high=str.length()-1;
+    while(low<high){
+        if(str[low]==str[high])
+            low++,high--;
+        else{
+            string str1=str.substr(low+1,high-low);
+            string str2=str.substr(low,high-low);
+            if(palindrome(str1)||palindrome(str2)){
+                return true;
+                break;
+            }
+            else{
+                return false;
+                break;
+            }
         }
     }
-}
-int selectionSort(vector<int> &array)
-{
-    for(int i=0;i<array.size();i++)
-    {
-        int min=i;
-        for(int j=i+1;j<array.size();j++)
-        if(array[min]>array[j])
-        min=j;
-        swap(array[min],array[i]);
-    }
+    return true;
 }
 int main()
 {
@@ -821,13 +870,28 @@ int main()
     // cout<<"Element is no present"<<endl;
     // int lowbound=lowerBound(array,target);
     // cout<<lowbound<<endl;
-    int no;
-    cin>>no;
-    vector<int> array(no);
-    for(int i=0;i<no;i++)
-    cin>>array[i];
-    selectionSort(array);
-    for(int i=0;i<array.size();i++)
-    cout<<array[i]<<" ";
+    // int no;
+    // cin>>no;
+    // vector<int> array(no);
+    // for(int i=0;i<no;i++)
+    // cin>>array[i];
+    // selectionSort(array);
+    // for(int i=0;i<array.size();i++)
+    // cout<<array[i]<<" ";
+    // string str;
+    // getline(cin,str);
+    // cout<<"After eliminating:"<<eliminateDuplicate(str);
+    // string str1,str2;
+    // cout<<"Enter Str1"<<endl;
+    // getline(cin,str1);
+    // cout<<"Enter Str2"<<endl;
+    // getline(cin,str2);
+    // cout<<"After removing all the occurance:"<<removeAllOccurence(str1,str2)<<endl;
+    string str;
+    getline(cin,str);
+    if(checkPalindrome(str))
+    cout<<"string is already a palindrome or can be a palindrome"<<endl;
+    else
+    cout<<"Not a palindrome"<<endl;
     return 0;
 }

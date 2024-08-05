@@ -4,16 +4,35 @@
 #include<cmath>
 using namespace std;
 string encodeMessage(string key,string message){
-    // without hashmap.
-    char map[1000]={-1},start='a';
-    for(auto it:key){
-        if(it!=' '&&map[it]==-1)
-        map[it]=start++;
-    }
+
+// without hashmap 
+
+    // vector<char> mapping(1000,-1);
+    // char count='a';
+    // string ans;
+    // for(auto it:key){
+    //     if(it!=' '&&mapping[it]==-1)
+    //     mapping[it]=count++;
+    // }
+    // for(auto it:message){
+    //     if(it==' ')
+    //     ans.append(" ");
+    //     else
+    //     ans.push_back(mapping[it]);
+    // }
+
+// with Hashmap
+
+    map<int,char> map;
+    char count='a';
     string ans;
+    for(auto it:key){
+        if(it!=' '&&map.find(it)==map.end())
+        map[it]=count++;
+    }
     for(auto it:message){
         if(it==' ')
-        ans.push_back(' ');
+        ans.append(" ");
         else
         ans.push_back(map[it]);
     }
@@ -24,8 +43,8 @@ int main()
     string key,message;
     cout<<"Enter the key"<<endl;
     getline(cin,key);
-    cout<<"Enter the message"<<endl;
+    cout<<"Enter the Enccoded message"<<endl;
     getline(cin,message);
-    cout<<"The encoded message is:"<<encodeMessage(key,message);
+    cout<<"The Decoded message is:"<<encodeMessage(key,message);
     return 0;
 }

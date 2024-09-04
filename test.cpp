@@ -813,6 +813,113 @@ bool checkPalindrome(string str){
     }
     return true;
 }
+string removeDuplicates(string str){
+    string temp="";
+    int i=0;
+    while(i<str.length()){
+        if(temp.length()==0||temp.back()!=str[i])
+        temp.push_back(str[i]);
+        else
+        temp.pop_back();
+        i++;
+    }
+    return temp;
+}
+bool palindromeMark2(string str){
+    int low=0,high=str.length()-1;
+    while(low<high){
+        if(str[low++]!=str[high--])
+        return false;
+    }
+    return true;
+}
+bool palindromeToBe(string str){
+    int low=0,high=str.length()-1;
+    while(low<high){
+        if(str[low]==str[high])
+            low++,high--;
+        else{
+            string str1=str.substr(low,high-low);
+            string str2=str.substr(low+1,high-low);
+            if(palindromeMark2(str1)||palindromeMark2(str2))
+            return true;
+            else
+            return false;
+        }
+    }
+        if(low>high)
+            return true;
+}
+int giveCountMf(string str,int low,int high){
+    int count=0;
+    while(str[low]==str[high]&&low>=0&&high<str.length())
+    {
+        count++;
+        low--,high++;
+    }
+    return count;
+}
+
+int countPalindrome(string str){
+    int oddCount=0,evenCount=0,total=0;
+    for(int i=0;i<str.length();i++){
+        oddCount=giveCountMf(str,i,i);
+        evenCount=giveCountMf(str,i,i+1);
+        total = total + evenCount+oddCount;
+    }
+    return total;
+}
+
+bool anagram(string str1,string str2){
+    int hashTable[256]={0};
+    for(int i=0;i<str1.length();i++)
+    hashTable[str1[i]]++;
+    for(int i=0;i<str2.length();i++)
+    hashTable[str2[i]]--;
+    for(int i=0;i<256;i++)
+    {
+        if(hashTable[i]!=0)
+        return false;
+    }
+    return true;
+}
+
+bool anagramMark2(string str1,string str2){
+    map<int,int> map1,map2;
+    for(int i=0;i<str1.length();i++)
+    map1[str1[i]]++;
+    for(int i=0;i<str2.length();i++)
+    map2[str2[i]]++;
+    if(map1==map2)
+    return true;
+    return false;
+}
+
+void reverseOnlyAlphabet(string &str){
+    int low=0,high=str.length()-1;
+    while(low<high){
+        if(isalpha(str[low])!=0&&isalpha(str[high])!=0)
+        swap(str[low++],str[high--]);
+        else if(isalpha(str[low])==0)
+        low++;
+        else
+        high--;
+    }
+}
+
+vector<vector<string>> groupAnagram(vector<string> array){
+    map<string,vector<string>> map;
+    vector<vector<string>> ans;
+    for(auto str:array){
+        string str1=str;
+        sort(str.begin(),str.end());
+        map[str].push_back(str1);
+    }
+    for(auto it:map)
+    ans.push_back(it.second);
+    return ans;
+}
+
 int main()
 {
     // int no,key;
@@ -887,11 +994,30 @@ int main()
     // cout<<"Enter Str2"<<endl;
     // getline(cin,str2);
     // cout<<"After removing all the occurance:"<<removeAllOccurence(str1,str2)<<endl;
-    string str;
-    getline(cin,str);
-    if(checkPalindrome(str))
-    cout<<"string is already a palindrome or can be a palindrome"<<endl;
-    else
-    cout<<"Not a palindrome"<<endl;
+    // string str;
+    // getline(cin,str);
+    // if(checkPalindrome(str))
+    // cout<<"string is already a palindrome or can be a palindrome"<<endl;
+    // else
+    // cout<<"Not a palindrome"<<endl;
+    // string str1,str2;
+    // getline(cin,str1);
+    // getline(cin,str2);
+    // if(anagramMark2(str1,str2))
+    // cout<<"Both are Anagram"<<endl;
+    // else
+    // cout<<"They are not Anagram"<<endl;
+    // string str;
+    // getline(cin,str);
+    // reverseOnlyAlphabet(str);
+    // cout<<"After reversing the string:"<<str;
+
+    vector<string> array={"eat","tea","tan","ate","nat","bat"};
+    vector<vector<string>> ans =groupAnagram(array);
+    for(int i=0;i<ans.size();i++){
+        for(int j=0;j<ans[i].size();j++)
+        cout<<ans[i][j]<<" ";
+        cout<<endl;
+    }
     return 0;
 }

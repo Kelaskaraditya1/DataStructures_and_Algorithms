@@ -919,7 +919,247 @@ vector<vector<string>> groupAnagram(vector<string> array){
     ans.push_back(it.second);
     return ans;
 }
+bool checkPalindrome(vector<int> array){
+    int low=0,high=array.size()-1;
+    while(low<high){
+        if(array[low++]!=array[high--])
+        return false;
+    }
+    return true;
+}
+// int countParanthesis(string str){
+//     int count=0;
+//     string pattern="()";
+//     while(str.find(pattern)!=string::npos){
+//         count++;
+//         int index=str.find(pattern);
+//         str.erase(index,2);
+//     }
+//     return count;
+// }
+int countParanthesis(string str){
+    int count=0;
+    string pattern="()";
+    while(str.find(pattern)!=string::npos){
+        count++;
+        int index=str.find(pattern);
+        str.erase(index,2);
+    }
+    return count;
+}
+    string removeOuterParentheses(string str) {
+        int i=0;
+        string ans="";
+        while(i<str.length()){
+            int j=i+1;
+            if(str[i]=='('&&str[j]=='('){
+                while(str[j]!=')'&&str[j+1]!=')')
+                j++;
+                string subStr=str.substr(i+1,j-i);
+                int count=countParanthesis(subStr);
+                while(count!=0){
+                    ans.append("()");
+                    count--;
+                }
+                if(j+2<str.length())
+                i=j+2;
+            }
+        }
+        return ans;
+    }
+     int myAtoi(string str) {
+        int sign=1,i=0,num=0;
+        while(!isdigit(str[i])&&str[i]!='-')
+        i++;
+        if(str[i]=='-'){
+            sign=-1;
+            i++;
+        }
+        if(str[i]=='0')
+        i++;
+        while(isdigit(str[i])&&i<str.length()){
+            if((num*10>INT_MAX/10)||((num*10==INT_MAX/10)&&(isdigit(str[i])>7))){
+                return 0;
+            }
+            num=(num*10)+str[i++]-'0';
+        }
+        return sign*num;
+    }
+        string longestPalindrome(string str) {
+        string oddString,evenString,finalString;
+        int i=0,j=0;
+        for(int k=0;k<str.length();k++){
+            i=k;
+            j=k;
+            while(i>=0&&j<str.length()&&str[i]==str[j])
+            i--,j++;
+            if(oddString.length()<j-(i+1))
+            oddString=str.substr(i+1,j-(i+1));
+        }
+        cout<<oddString<<endl;
+        j=0,i=0;
+            for(int k=0;k<str.length();k++){
+            i=k;
+            j=k+1;
+            while(i>=0&&j<str.length()&&str[i]==str[j])
+            i--,j++;
+            i++;
+            if(evenString.length()<j-i)
+            evenString=str.substr(i,j-i);
+        }
+        cout<<evenString<<endl;
+        if(evenString.length()>oddString.length())
+        finalString=evenString;
+        else
+        finalString=oddString;
+        return finalString;
+    }
+    class Node{
+        public:
+        int data;
+        Node* next;
+        Node(int data1,Node* next1){
+            data=data1;
+            next=next1;
+        }
+        Node(int data1){
+            data=data1;
+            next=nullptr;
+        }
+        Node(){
+            
+        }
+    };
+    Node* start=NULL;
+    void insertElement(int data){
+        Node* node = new Node(data);
+        if(start==NULL)
+        start=node;
+        else{
+            Node* tn=start;
+            while(tn->next!=NULL)
+            tn=tn->next;
+            tn->next=node;
+        }
+    }
+    void traversingLinkedList(){
+        if(start==NULL)
+        cout<<"Create a LinkedList 1st"<<endl;
+        else{
+            Node* tn = start;
+            while(tn->next!=NULL){
+                cout<<tn->data<<" ";
+                tn=tn->next;
+            }
+        }
+    }
+    bool searchLinkedList(int target){
+        if(start==NULL)
+        cout<<"Create a LinkedList";
+        else{
+            Node* tn = start;
+            while(tn->next!=NULL){
+                if(tn->data==target)
+                return true;
+                else
+                tn=tn->next;
+            }
+        }
+        return false;
+    }
+    void removeHead(){
+        if(start!=NULL){
+            Node* tn = start;
+            start=tn->next;
+        }
+    }
+    void removeTail(){
+        if(start!=NULL){
+            Node* tn = start;
+            while(tn->next->next!=NULL)
+            tn=tn->next;
+            tn->next=NULL;
+        }
+    }
+    bool deleteElement(int target){
+        if(start!=NULL){
+            if(start->data==target)
+            start=start->next;
+            else{
+                Node*tn =start;
+                while(tn->next->data!=target)
+                tn=tn->next;
+                tn->next=tn->next->next;
+            }
+        }
+    }
+    void deleteNode(int x){
+        int count=1;
+        if(start!=NULL){
+            if(x==1)
+            start=start->next;
+            else{
+                Node* tn = start;
+                while(count!=x-1){
+                    count++;
+                    tn=tn->next;
+                }
+                tn->next=tn->next->next;
+            }
+        }
+    }
+    void insertHead(int val){
+        if(start!=NULL){
+            Node* node = new Node(val);
+            node->next=start;
+            start=node;
+        }
+    }
+    void insertLast(int x){
+        if(start!=NULL){
+            Node* tn = start;
+            while(tn->next!=NULL)
+            tn=tn->next;
+            Node* node = new Node(x);
+            tn->next=node;
+        }
+    }
+    void insertElement(int x,int position){
+        if(start!=NULL){
+            Node* node = new Node(x);
+            if(position==1){
+                node->next=start;
+                start=node;
+            }
+            else{
+                int count=1;
+                Node* tn = start;
+                while(count!=position-1){
+                    count++;
+                    tn=tn->next;
+                }
+                node->next=tn->next;
+                tn->next=node;
 
+            }
+        }
+    }
+    void insertBeforeValue(int val,int before){
+        if(start!=NULL){
+            Node* node = new Node(val);
+            if(start->data==before){
+                node->next=start;
+                start=node;
+            }
+            else{
+                Node* tn = start;
+                while(tn->next->data!=before)
+                tn=tn->next;
+                node->next=tn->next;
+                tn->next=node;
+            }
+        }
+    }
 int main()
 {
     // int no,key;
@@ -1012,12 +1252,49 @@ int main()
     // reverseOnlyAlphabet(str);
     // cout<<"After reversing the string:"<<str;
 
-    vector<string> array={"eat","tea","tan","ate","nat","bat"};
-    vector<vector<string>> ans =groupAnagram(array);
-    for(int i=0;i<ans.size();i++){
-        for(int j=0;j<ans[i].size();j++)
-        cout<<ans[i][j]<<" ";
-        cout<<endl;
-    }
+    // vector<string> array={"eat","tea","tan","ate","nat","bat"};
+    // vector<vector<string>> ans =groupAnagram(array);
+    // for(int i=0;i<ans.size();i++){
+    //     for(int j=0;j<ans[i].size();j++)
+    //     cout<<ans[i][j]<<" ";
+    //     cout<<endl;
+    // }
+    // vector<int> array={1,1,1,2,2,2};
+    // if(checkPalindrome(array))
+    // cout<<"It is a Palindrome";
+    // else
+    // cout<<"not a palindrome";
+    // string str;
+    // getline(cin,str);
+    // cout<<"The Count is:"<<removeOuterParentheses(str);
+    // string str="words and 987";
+    // cout<<myAtoi(str);
+    // string str="cbbd";
+    // cout<<longestPalindrome(str)<<endl;
+    insertElement(10);
+    insertElement(20);
+    insertElement(30);
+    insertElement(40);
+    insertElement(50);
+    insertElement(60);
+    insertElement(70);
+    insertElement(80);
+    insertElement(90);
+    insertElement(100);
+    insertElement(110);
+    // if(searchLinkedList(9   0))
+    // cout<<"Value is Present in the LinkedList"<<endl;
+    // else
+    // cout<<"Value is not present in the LL"<<endl;
+    // traversingLinkedList();
+    cout<<"After removing the head"<<endl;
+    // removeHead();
+    // removeTail();
+    // deleteElement(50);
+    // deleteNode(5);
+    // deleteNode(3);
+    insertBeforeValue(5,10);
+    insertBeforeValue(35,40);
+    traversingLinkedList();
     return 0;
-}
+}   

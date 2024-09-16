@@ -1014,150 +1014,267 @@ int countParanthesis(string str){
         finalString=oddString;
         return finalString;
     }
-    class Node{
-        public:
-        int data;
-        Node* next;
-        Node(int data1,Node* next1){
-            data=data1;
-            next=next1;
-        }
-        Node(int data1){
-            data=data1;
-            next=nullptr;
-        }
-        Node(){
+    // class Node{
+    //     public:
+    //     int data;
+    //     Node* next;
+    //     Node(int data1,Node* next1){
+    //         data=data1;
+    //         next=next1;
+    //     }
+    //     Node(int data1){
+    //         data=data1;
+    //         next=nullptr;
+    //     }
+    //     Node(){
             
-        }
-    };
-    Node* start=NULL;
-    void insertElement(int data){
-        Node* node = new Node(data);
-        if(start==NULL)
-        start=node;
-        else{
-            Node* tn=start;
-            while(tn->next!=NULL)
-            tn=tn->next;
-            tn->next=node;
-        }
+    //     }
+    // };
+    // Node* start=NULL;
+    // void insertElement(int data){
+    //     Node* node = new Node(data);
+    //     if(start==NULL)
+    //     start=node;
+    //     else{
+    //         Node* tn=start;
+    //         while(tn->next!=NULL)
+    //         tn=tn->next;
+    //         tn->next=node;
+    //     }
+    // }
+    // void traversingLinkedList(){
+    //     if(start==NULL)
+    //     cout<<"Create a LinkedList 1st"<<endl;
+    //     else{
+    //         Node* tn = start;
+    //         while(tn->next!=NULL){
+    //             cout<<tn->data<<" ";
+    //             tn=tn->next;
+    //         }
+    //     }
+    // }
+    // bool searchLinkedList(int target){
+    //     if(start==NULL)
+    //     cout<<"Create a LinkedList";
+    //     else{
+    //         Node* tn = start;
+    //         while(tn->next!=NULL){
+    //             if(tn->data==target)
+    //             return true;
+    //             else
+    //             tn=tn->next;
+    //         }
+    //     }
+    //     return false;
+    // }
+    // void removeHead(){
+    //     if(start!=NULL){
+    //         Node* tn = start;
+    //         start=tn->next;
+    //     }
+    // }
+    // void removeTail(){
+    //     if(start!=NULL){
+    //         Node* tn = start;
+    //         while(tn->next->next!=NULL)
+    //         tn=tn->next;
+    //         tn->next=NULL;
+    //     }
+    // }
+    // bool deleteElement(int target){
+    //     if(start!=NULL){
+    //         if(start->data==target)
+    //         start=start->next;
+    //         else{
+    //             Node*tn =start;
+    //             while(tn->next->data!=target)
+    //             tn=tn->next;
+    //             tn->next=tn->next->next;
+    //         }
+    //     }
+    // }
+    // void deleteNode(int x){
+    //     int count=1;
+    //     if(start!=NULL){
+    //         if(x==1)
+    //         start=start->next;
+    //         else{
+    //             Node* tn = start;
+    //             while(count!=x-1){
+    //                 count++;
+    //                 tn=tn->next;
+    //             }
+    //             tn->next=tn->next->next;
+    //         }
+    //     }
+    // }
+    // void insertHead(int val){
+    //     if(start!=NULL){
+    //         Node* node = new Node(val);
+    //         node->next=start;
+    //         start=node;
+    //     }
+    // }
+    // void insertLast(int x){
+    //     if(start!=NULL){
+    //         Node* tn = start;
+    //         while(tn->next!=NULL)
+    //         tn=tn->next;
+    //         Node* node = new Node(x);
+    //         tn->next=node;
+    //     }
+    // }
+    // void insertElement(int x,int position){
+    //     if(start!=NULL){
+    //         Node* node = new Node(x);
+    //         if(position==1){
+    //             node->next=start;
+    //             start=node;
+    //         }
+    //         else{
+    //             int count=1;
+    //             Node* tn = start;
+    //             while(count!=position-1){
+    //                 count++;
+    //                 tn=tn->next;
+    //             }
+    //             node->next=tn->next;
+    //             tn->next=node;
+
+    //         }
+    //     }
+    // }
+    // void insertBeforeValue(int val,int before){
+    //     if(start!=NULL){
+    //         Node* node = new Node(val);
+    //         if(start->data==before){
+    //             node->next=start;
+    //             start=node;
+    //         }
+    //         else{
+    //             Node* tn = start;
+    //             while(tn->next->data!=before)
+    //             tn=tn->next;
+    //             node->next=tn->next;
+    //             tn->next=node;
+    //         }
+    //     }
+    // }
+    // class DoubleNode{
+    //     public:
+    //     int data;
+    //     DoubleNode* prev;
+    //     DoubleNode* next;
+    //     DoubleNode(int data,DoubleNode* prev,DoubleNode* next){
+    //         this->data=data;
+    //         this->prev=prev;
+    //         this->next=next;
+    //     }
+    //     DoubleNode(int data){
+    //         this->data=data;
+    //         this->next=NULL;
+    //         this->prev=NULL;
+    //     }
+    //     DoubleNode(){
+
+    //     }
+    // };
+    // DoubleNode* DLLstart=NULL;
+    // void printDoublyLinkedList(DoubleNode* head){
+    //     if(head!=NULL)
+    //     {
+    //         DoubleNode* tn = head;
+    //         while(tn!=NULL){
+    //             cout<<tn->data<<" ";
+    //             tn=tn->next;
+    //         }
+    //     }
+    // }
+    // DoubleNode* deleteHeadDLL(DoubleNode* head){
+    //     if(head!=NULL&&head->next!=NULL){
+    //         head=head->next;
+    //         head->prev=NULL;
+    //     }
+    //     return head;
+    // }
+    // void insertDLL(int data){
+    //     DoubleNode* node = new DoubleNode(data);
+    //     if(DLLstart==NULL)
+    //     DLLstart=node;
+    //     else{
+    //         DoubleNode* tn = DLLstart;
+    //         while(tn->next!=NULL)
+    //         tn=tn->next;
+    //         tn->next=node;
+    //         node->prev=tn;
+    //     }
+    // }
+    // void printDll(){
+    //     if(DLLstart!=NULL){
+    //         DoubleNode* tn = DLLstart;
+    //         while(tn!=NULL){
+    //             cout<<tn->data<<" ";
+    //             tn=tn->next;
+    //         }
+    //     }
+    // }
+    class DLLNode {
+  public:
+    int data;
+    DLLNode *next;
+    DLLNode *prev;
+
+    DLLNode(int val) {
+        data = val;
+        this->next = NULL;
+        this->prev = NULL;
     }
-    void traversingLinkedList(){
-        if(start==NULL)
-        cout<<"Create a LinkedList 1st"<<endl;
-        else{
-            Node* tn = start;
-            while(tn->next!=NULL){
+};
+    DLLNode* start = NULL;
+    DLLNode* reverseDLL(DLLNode* head) {
+        stack<int> stack;
+        DLLNode* tn = head;
+        while(tn!=NULL){
+            stack.push(tn->data);
+            tn=tn->next;
+        }
+        cout<<stack.size()<<endl;
+        tn=head;
+        while(tn!=NULL){
+            tn->data=stack.top();
+            stack.pop();
+            tn=tn->next;
+        }
+        return head;
+    }
+    void printDLL(DLLNode* head){
+        if(head!=NULL){
+            DLLNode* tn = head;
+            while(tn!=NULL){
                 cout<<tn->data<<" ";
                 tn=tn->next;
             }
         }
     }
-    bool searchLinkedList(int target){
+    void printDLLWithoutHead(){
+        if(start!=NULL){
+            DLLNode* tn = start;
+            while(tn!=NULL){
+                cout<<tn->data<<" ";
+                tn=tn->next;
+            }
+        }
+    }
+    void insertDLL(int data){
+        DLLNode* node = new DLLNode(data);
         if(start==NULL)
-        cout<<"Create a LinkedList";
+        start=node;
         else{
-            Node* tn = start;
-            while(tn->next!=NULL){
-                if(tn->data==target)
-                return true;
-                else
-                tn=tn->next;
-            }
-        }
-        return false;
-    }
-    void removeHead(){
-        if(start!=NULL){
-            Node* tn = start;
-            start=tn->next;
-        }
-    }
-    void removeTail(){
-        if(start!=NULL){
-            Node* tn = start;
-            while(tn->next->next!=NULL)
-            tn=tn->next;
-            tn->next=NULL;
-        }
-    }
-    bool deleteElement(int target){
-        if(start!=NULL){
-            if(start->data==target)
-            start=start->next;
-            else{
-                Node*tn =start;
-                while(tn->next->data!=target)
-                tn=tn->next;
-                tn->next=tn->next->next;
-            }
-        }
-    }
-    void deleteNode(int x){
-        int count=1;
-        if(start!=NULL){
-            if(x==1)
-            start=start->next;
-            else{
-                Node* tn = start;
-                while(count!=x-1){
-                    count++;
-                    tn=tn->next;
-                }
-                tn->next=tn->next->next;
-            }
-        }
-    }
-    void insertHead(int val){
-        if(start!=NULL){
-            Node* node = new Node(val);
-            node->next=start;
-            start=node;
-        }
-    }
-    void insertLast(int x){
-        if(start!=NULL){
-            Node* tn = start;
+            DLLNode* tn = start;
             while(tn->next!=NULL)
             tn=tn->next;
-            Node* node = new Node(x);
             tn->next=node;
-        }
-    }
-    void insertElement(int x,int position){
-        if(start!=NULL){
-            Node* node = new Node(x);
-            if(position==1){
-                node->next=start;
-                start=node;
-            }
-            else{
-                int count=1;
-                Node* tn = start;
-                while(count!=position-1){
-                    count++;
-                    tn=tn->next;
-                }
-                node->next=tn->next;
-                tn->next=node;
-
-            }
-        }
-    }
-    void insertBeforeValue(int val,int before){
-        if(start!=NULL){
-            Node* node = new Node(val);
-            if(start->data==before){
-                node->next=start;
-                start=node;
-            }
-            else{
-                Node* tn = start;
-                while(tn->next->data!=before)
-                tn=tn->next;
-                node->next=tn->next;
-                tn->next=node;
-            }
+            node->prev=tn;
         }
     }
 int main()
@@ -1271,30 +1388,50 @@ int main()
     // cout<<myAtoi(str);
     // string str="cbbd";
     // cout<<longestPalindrome(str)<<endl;
-    insertElement(10);
-    insertElement(20);
-    insertElement(30);
-    insertElement(40);
-    insertElement(50);
-    insertElement(60);
-    insertElement(70);
-    insertElement(80);
-    insertElement(90);
-    insertElement(100);
-    insertElement(110);
+    // insertElement(10);
+    // insertElement(20);
+    // insertElement(30);
+    // insertElement(40);
+    // insertElement(50);
+    // insertElement(60);
+    // insertElement(70);
+    // insertElement(80);
+    // insertElement(90);
+    // insertElement(100);
+    // insertElement(110);
     // if(searchLinkedList(9   0))
     // cout<<"Value is Present in the LinkedList"<<endl;
     // else
     // cout<<"Value is not present in the LL"<<endl;
     // traversingLinkedList();
-    cout<<"After removing the head"<<endl;
+    // cout<<"After removing the head"<<endl;
     // removeHead();
     // removeTail();
     // deleteElement(50);
     // deleteNode(5);
     // deleteNode(3);
-    insertBeforeValue(5,10);
-    insertBeforeValue(35,40);
-    traversingLinkedList();
+    // insertBeforeValue(5,10);
+    // insertBeforeValue(35,40);
+    // traversingLinkedList();
+    insertDLL(10);
+    insertDLL(20);
+    insertDLL(30);
+    insertDLL(40);
+    insertDLL(50);
+    insertDLL(60);
+    insertDLL(70);
+    insertDLL(80);
+    insertDLL(90);
+    insertDLL(100);
+    insertDLL(110);
+    insertDLL(120);
+    insertDLL(130);
+    insertDLL(140);
+    insertDLL(150);
+    insertDLL(160);
+    insertDLL(170);
+    insertDLL(180);
+    // printDLLWithoutHead();
+    printDLL(reverseDLL(start));
     return 0;
 }   

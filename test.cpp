@@ -1350,6 +1350,28 @@ int countParanthesis(string str){
         output.push_back(input[index]);
         properSubset(input,output,index+1);
     }
+    int countOccurances(string str){
+        int sum=0;
+        map<char,int> map;
+        for(int i=0;i<str.length();i++)
+        map[str[i]]++;
+        for(auto it:map){
+            if(it.second<2)
+            sum+=2;
+            else
+            sum+=it.second;
+        }
+        return sum;
+    }
+    vector<int> findFactors(int no){
+        vector<int> factors;
+        for(int i=1;i<=no;i++){
+            if(no%i==0)
+            factors.push_back(i);
+        }
+        return factors;
+    }
+    
 int main()
 {
     // int no,key;
@@ -1516,8 +1538,12 @@ int main()
     // cout<<"array is sorted"<<endl;
     // else
     // cout<<"array is not sorted"<<endl;
-    vector<int> array={1,2,3};
-    vector<int> output;
-    properSubset(array,output-,0);
+    // vector<int> array={1,2,3};
+    // vector<int> output;
+    // properSubset(array,output-,0);
+    // cout<<countOccurances("facetious");
+    vector<int> factors=findFactors(1869);
+    for(auto it:factors)
+    cout<<it<<" ";
     return 0;
 }   

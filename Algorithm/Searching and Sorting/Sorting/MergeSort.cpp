@@ -5,27 +5,21 @@
 using namespace std;
 void merge(vector<int> &array,int l,int mid,int h)
 {
-    int i=l,j=mid+1,k=0;
-    vector<int> b(h+1);
+    int i=l,j=mid+1;
+    vector<int> b;
     while(i<=mid&&j<=h)
     {
-        if(array[i]<array[j])
-        b[k++]=array[i++];
+        if(array[i]<=array[j])
+        b.push_back(array[i++]);
         else
-        b[k++]=array[j++];
+        b.push_back(array[j++]);
     }
-    if(i<mid)
-    {
-        while(i<=mid)
-        b[k++]=array[i++];
-    }
-    if(j<h)
-    {
-        while(j<=h)
-        b[k++]=array[j++];
-    }
-    for(int k=0,i=l;k<h;k++)
-    array[i]=b[k];
+    while(i<=mid)
+    b.push_back(array[i++]);
+    while(j<=h)
+    b.push_back(array[j++]);
+    for(int k=l;k<=h;k++)
+    array[k]=b[k-l];
 }
 void mergeSort(vector<int> &array,int l,int h)
 {

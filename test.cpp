@@ -1277,6 +1277,79 @@ int countParanthesis(string str){
             node->prev=tn;
         }
     }
+    int lengthOfLastWord(string str){
+        vector<string> strings;
+        int i=0;
+        string word="";
+        while(i<str.length()){
+            if(str[i]!=' ')
+            word.push_back(str[i]);
+            else{
+                strings.push_back(word);
+                word="";
+            }
+            i++;
+        }
+        strings.push_back(word);
+        string lastword=strings[strings.size()-1];
+        cout<<lastword<<endl;
+        return lastword.length();
+    }
+    void counting(int n){
+        cout<<n<<endl;
+        if(n==1)
+        return ;
+        counting(n-1);
+    }
+    int factorial(int n){
+        if(n==0||n==1)
+        return 1;
+        return n*factorial(n-1);
+    }
+    int fibonacci(int n){
+        if(n==1)
+        return 0;
+        else if(n==2)
+        return 1;
+        else 
+        return fibonacci(n-1)+fibonacci(n-2);
+    }
+    void fibonacciSeries(int n){
+        for(int i=1;i<=n;i++)
+        cout<<fibonacci(i)<<" ";
+    }
+    void printNumber(int no){
+        vector<string> array={"one","two","three","four","five","six","seven","eight","nine"};
+        int num=no;
+        if(no==0)
+        return ;
+        printNumber(no/10);
+        cout<<array[(num%10)-1]<<" ";
+    }
+    int powerFunction(int n){
+        if(n==0)
+        return 1;
+        return 2*powerFunction(n-1);
+    }
+    bool sorted(int i,vector<int> array){
+        if(i==array.size()-1)
+        return true;
+        if(array[i]<array[i+1])
+        return sorted(i+1,array);
+        else
+        return false;
+    }
+    void properSubset(vector<int> input,vector<int> output,int index){
+        if(index>=input.size()){
+            for(auto it:output)
+            cout<<it<<" ";
+            cout<<endl;
+            return ;
+        }
+        properSubset(input,output,index+1);
+        output.push_back(input[index]);
+        properSubset(input,output,index+1);
+    }
 int main()
 {
     // int no,key;
@@ -1413,25 +1486,38 @@ int main()
     // insertBeforeValue(5,10);
     // insertBeforeValue(35,40);
     // traversingLinkedList();
-    insertDLL(10);
-    insertDLL(20);
-    insertDLL(30);
-    insertDLL(40);
-    insertDLL(50);
-    insertDLL(60);
-    insertDLL(70);
-    insertDLL(80);
-    insertDLL(90);
-    insertDLL(100);
-    insertDLL(110);
-    insertDLL(120);
-    insertDLL(130);
-    insertDLL(140);
-    insertDLL(150);
-    insertDLL(160);
-    insertDLL(170);
-    insertDLL(180);
+    // insertDLL(10);
+    // insertDLL(20);
+    // insertDLL(30);
+    // insertDLL(40);
+    // insertDLL(50);
+    // insertDLL(60);
+    // insertDLL(70);
+    // insertDLL(80);
+    // insertDLL(90);
+    // insertDLL(100);
+    // insertDLL(110);
+    // insertDLL(120);
+    // insertDLL(130);
+    // insertDLL(140);
+    // insertDLL(150);
+    // insertDLL(160);
+    // insertDLL(170);
+    // insertDLL(180);
     // printDLLWithoutHead();
-    printDLL(reverseDLL(start));
+    // printDLL(reverseDLL(start));
+    // counting(5);
+    // cout<<factorial(5);
+    // fibonacciSeries(7);
+    //  printNumber(432);
+    // vector<int> v1={1,2,3,4,5};
+    // vector<int> v2={1,2,3,4,3,2,1};
+    // if(sorted(0,v2))
+    // cout<<"array is sorted"<<endl;
+    // else
+    // cout<<"array is not sorted"<<endl;
+    vector<int> array={1,2,3};
+    vector<int> output;
+    properSubset(output,array,0);
     return 0;
 }   

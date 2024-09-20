@@ -1340,11 +1340,11 @@ int countParanthesis(string str){
         return false;
     }
     void properSubset(vector<int> input,vector<int> output,int index){
-        if(index>=input.size()){
+        if(index>input.size()){
             for(auto it:output)
             cout<<it<<" ";
             cout<<endl;
-            return ;
+            return;
         }
         properSubset(input,output,index+1);
         output.push_back(input[index]);
@@ -1518,6 +1518,6 @@ int main()
     // cout<<"array is not sorted"<<endl;
     vector<int> array={1,2,3};
     vector<int> output;
-    properSubset(output,array,0);
+    properSubset(array,output-,0);
     return 0;
 }   

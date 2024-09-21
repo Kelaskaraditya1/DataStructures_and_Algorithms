@@ -111,11 +111,114 @@ void quickSort(vector<int>& arr, int low, int high) {
     }
 }
 
-
 void printArray(vector<int> &array){
     for(auto it:array)
     cout<<it<<" ";
 }
+
+// infix , prefix , postfix conversions.
+
+// Infix to postfix.priority wala concept.
+
+  int priority(char ch){
+      if(ch=='^')
+      return 3;
+      else if(ch=='+'||ch=='-')
+      return 1;
+      else if(ch=='*'|| ch=='/')
+      return 2;
+      return 0;
+  }
+    string infixToPostfix(string str){
+        int i=0;
+        stack<char> stack;
+        string postfix="";
+        while(i<str.length()){
+             if((str[i]>='a'&&str[i]<='z')||(str[i]>='A'&&str[i]<='Z')||(str[i]>='0'&&str[i]<='9'))
+            postfix.push_back(str[i]);
+            else if(str[i]=='(')
+            stack.push(str[i]);
+            else if(str[i]==')'){
+                while(!stack.empty()&&stack.top()!='('){
+                    postfix.push_back(stack.top());
+                    stack.pop();
+                }
+                stack.pop();
+            }
+            else {
+                if(!stack.empty()&&priority(str[i])<=priority(stack.top())){
+                    postfix.push_back(stack.top());
+                    stack.pop();
+                }
+                stack.push(str[i]);
+            }
+            i++;
+        }
+                while(!stack.empty()){
+            postfix.push_back(stack.top());
+            stack.pop();
+        }
+        return postfix;
+    }
+
+    // indfix to prefix.
+    /*
+    1) reverse the infix expression change (->) and )->(
+    2) convert to postfix in controlled env i.e prio(str[i])<prio(stack.top())
+        and if(str[i]=='^)
+        prio(stack.top()>=str[i])
+    3) reverse the statement.
+    */
+   string reverse(string &str){
+    int low=0,high=str.length()-1;
+    while(low<=high){
+        if(str[low]=='('&&str[high]==')')
+        low++,high--;
+        swap(str[low++],str[high--]);
+    }
+   }
+   string infixToPrefix(string str){
+    reverse(str);
+    int i=0;
+    stack<char> stack;
+    string prefix="";
+    while(i<str.length()){
+             if((str[i]>='a'&&str[i]<='z')||(str[i]>='A'&&str[i]<='Z')||(str[i]>='0'&&str[i]<='9'))
+            prefix.push_back(str[i]);
+            else if(str[i]=='(')
+            stack.push(str[i]);
+            else if(str[i]==')'){
+                while(!stack.empty()&&stack.top()!='('){
+                    prefix.push_back(stack.top());
+                    stack.pop();
+                }
+                stack.pop();
+            }
+            else{
+                if(str[i]=='^'){
+                    if(!stack.empty()&&priority(stack.top())>=priority(str[i])){
+                        prefix.push_back(stack.top());
+                        stack.pop();
+                    }
+                }
+                else{
+                        if(priority(str[i])<stack.top()&&!stack.empty()){
+                            prefix.push_back(stack.top());
+                            stack.pop();
+                        }
+                    }
+                    stack.push(str[i]); 
+            }  
+            i++;  
+        }
+        while(!stack.empty()){
+            prefix.push_back(stack.top());
+            stack.pop();
+        }
+        reverse(prefix);
+        return prefix;
+   }
+
 int main()
 {
 
@@ -134,8 +237,21 @@ int main()
     vector<int> array={20,50,30,10,60,90,100,40};
     // bubbleSort(array);
     // insertionSort(array);
-    quickSort(array,0,array.size()-1);
+    // quickSort(array,0,array.size()-1);
     // mergeSort(array,0,array.size()-1);
-    printArray(array);
+    // printArray(array);
+
+    // infix,postfix,prefix conversions.
+
+    // 1) infix to postfix
+
+    string infix1="a+b*(c^d-e)^(f+g*h)-i";
+    string infix2="A*(B+C)/D";
+    // cout<<infixToPostfix(infix1)<<endl;
+    // cout<<infixToPostfix(infix2);
+
+    // 2) infix to prefix
+    string infix3="*-A/BC-/AKL";
+    cout<<infixToPrefix(infix3);
     return 0;
 }

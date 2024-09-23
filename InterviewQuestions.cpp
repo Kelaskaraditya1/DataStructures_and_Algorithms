@@ -336,6 +336,93 @@ void printArray(vector<int> &array){
    float equation(float a,float b){
     return pow(a,3)+pow(a,2*b)+pow(2*a,2*b)+pow(2*a*b,2)+pow(a*b,2)+pow(b,3);
    }
+
+   void pythagroeanTriplet(int n){
+    for(int a=1;a<=n;a++){
+        for(int b=a;b<=n;b++){
+            int c=sqrt((a*a)+(b*b));
+            if((c*c==(a*a)+(b*b))&&c<=n)
+                cout<<a<<" "<<b<<" "<<c<<endl;
+        }
+    }
+   }
+
+   bool balancedParanthesis(string str){
+    stack<char> stack;
+    for(int i=0;i<str.length();i++){
+        if(str[i]=='('||str[i]=='{'||str[i]=='[')
+        stack.push(str[i]);
+        else if((str[i]==')'&&stack.top()!='(')||(str[i]=='}'&&stack.top()!='{')||(str[i]==']'&&stack.top()!='['))
+        return false;
+        else
+        stack.pop();
+    }
+    if(!stack.empty())
+    return false;
+    return true;
+   }
+
+
+//  maximum sum of largest subarray 
+int kadaneAlgo(vector<int> array) {
+    int maxSum = array[0]; 
+    int sum = 0; 
+    for (int i = 0; i < array.size(); i++) {
+        sum +=array[i];
+        maxSum = max(maxSum, sum);
+        if (sum < 0)
+         sum = 0;
+    }
+    return maxSum;
+}
+
+vector<int> intersection(vector<int> a1,vector<int> a2){
+    vector<int> result;
+    int i=0,j=0;
+    while(i<a1.size()&&j<a2.size()){
+        if(a1[i]<a2[j])
+        i++;
+        else if(a2[j]<a1[i])
+        j++;
+        else{
+            result.push_back(a1[i]);
+            i++,j++;
+        }
+    }
+    return result;
+}
+
+vector<vector<int>> mergeIntervals(vector<vector<int>> array){
+    // brute force approach
+    vector<vector<int>> ans;
+    sort(array.begin(),array.end());
+    // for(int i=0;i<array.size();i++){
+    //     int start=array[i][0];
+    //     int end=array[i][1];
+    //     if(!ans.empty()&&end<=ans.back()[1])
+    //     continue;
+    //     for(int j=i+1;j<array.size();j++){
+    //         if(array[j][0]<=end)
+    //         end=max(end,array[j][1]);
+    //         else
+    //         break;
+    //     }
+    //     ans.push_back({start,end});
+    // }
+    // return ans;
+
+    // optimus prime appraoch  just keep on changing the last digit.
+
+    
+    for(int i=0;i<array.size();i++){
+        if(ans.empty()||array[i][0]>ans.back()[1])
+        ans.push_back({array[i][0],array[i][1]});
+        else
+        ans.back()[1]=max(array[i][1],ans.back()[1]);
+    }
+    return ans;
+}
+
 int main()
 {
 
@@ -383,6 +470,29 @@ int main()
     // spiralPattern(arr);
 
 
-    cout<<equation(1,2);
+    // cout<<equation(1,2);
+
+    // pythagroeanTriplet(20);
+
+
+    // cout<<balancedParanthesis("([])");
+
+    // vector<int> array={-2,1,-3,4,-1,2,1,-5,4};
+    // cout<<kadaneAlgo(array);
+
+
+    // vector<int> a={1,2,2,1};
+    // vector<int> b={2,2};
+    // vector<int> ans=intersection(a,b);
+    // for(auto it:ans)
+    // cout<<it<<" ";
+
+    vector<vector<int>> array={{1,3},{2,4},{2,6},{8,9},{8,10},{9,11},{15,18},{16,17}};
+    vector<vector<int>> ans = mergeIntervals(array);
+    for(int i=0;i<ans.size();i++){
+        for(int j=0;j<ans[0].size();j++)
+        cout<<ans[i][j]<<" ";
+        cout<<endl;
+    }
     return 0;
 }

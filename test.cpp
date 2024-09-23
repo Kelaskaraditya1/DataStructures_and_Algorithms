@@ -1350,9 +1350,30 @@ int countParanthesis(string str){
         output.push_back(input[index]);
         properSubset(input,output,index+1);
     }
+    // int countOccurances(string str){
+    //     int sum=0;
+    //     map<char,int> map;
+    //     for(int i=0;i<str.length();i++)
+    //     map[str[i]]++;
+    //     for(auto it:map){
+    //         if(it.second<2)
+    //         sum+=2;
+    //         else
+    //         sum+=it.second;
+    //     }
+    //     return sum;
+    // }
+    vector<int> findFactors(int no){
+        vector<int> factors;
+        for(int i=1;i<=no;i++){
+            if(no%i==0)
+            factors.push_back(i);
+        }
+        return factors;
+    }
     int countOccurances(string str){
-        int sum=0;
         map<char,int> map;
+        int sum=0;
         for(int i=0;i<str.length();i++)
         map[str[i]]++;
         for(auto it:map){
@@ -1363,15 +1384,17 @@ int countParanthesis(string str){
         }
         return sum;
     }
-    vector<int> findFactors(int no){
-        vector<int> factors;
-        for(int i=1;i<=no;i++){
-            if(no%i==0)
-            factors.push_back(i);
+    bool specialString(string str){
+        int i=2;
+        char ch = str[0];
+        while(i<str.length()){
+            if(str[i]!=ch)
+            return false;
+            i=i+2;
         }
-        return factors;
+        return true;
     }
-    
+
 int main()
 {
     // int no,key;
@@ -1542,8 +1565,30 @@ int main()
     // vector<int> output;
     // properSubset(array,output-,0);
     // cout<<countOccurances("facetious");
-    vector<int> factors=findFactors(1869);
-    for(auto it:factors)
-    cout<<it<<" ";
+    // vector<int> factors=findFactors(1869);
+    // for(auto it:factors)
+    // cout<<it<<" ";
+    // string name="balloon";
+    // cout<<countOccurances(name);
+    // int sem,i=0;
+    // cout<<" Enter no of sem";
+    // cin>>sem;
+    // vector<int> maxMarks;
+    // while(i<sem){
+    //     int subjects,marks,maxm=INT_MIN;
+    //     cin>>subjects;
+    //     for(int i=0;i<subjects;i++){
+    //         cin>>marks;
+    //         maxm=max(marks,maxm);
+    //     }
+    //     maxMarks.push_back(maxm);
+    //     i++;
+    // }
+    // for(auto it:maxMarks)
+    // cout<<it<<" ";
+    cout<<specialString("adaoas");
+    cout<<specialString("madam");
+    cout<<specialString("ababa");
+    cout<<specialString("bssbs");
     return 0;
 }   

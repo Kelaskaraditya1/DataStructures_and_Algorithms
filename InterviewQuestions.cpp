@@ -218,7 +218,124 @@ void printArray(vector<int> &array){
         reverse(prefix);
         return prefix;
    }
+   string decodeMessage(string str,int length){
+    if(length==0)
+    return NULL;
+    int i=0;
+    string ans;
+    while(i<str.length()){
+        if(isdigit(str[i])){
+            int num=str[i]-'0';
+            char ch = 65+num-1;
+            ans.push_back(ch);
+            i++;
+        }
+        else if(str[i]=='_'){
+            ans.push_back(' ');
+            i++;
+        }
+                else if(str[i]=='#'){
+            int start=i+1,j=i+1;
+            while(j<str.length()&&str[j]!='#')
+            j++;
+            string subStr=str.substr(start,j-start);
+            ans.append(subStr);
+            i=j;
+        }
+        else{
+            ans.push_back(str[i]);
+            i++;
+        }
+    }
+    return ans;
+   }
+   void moveToFront(string &str){
+    // int count=0;
+    // string str1="";
+    // string finalStr="";
+    // for(int i=0;i<str.length();i++){
+    //     if(str[i]=='#')
+    //     count++;
+    //     else
+    //     str1.push_back(str[i]);
+    // }
+    // while(count!=0){
+    //     finalStr.push_back('#');
+    //     count--;
+    // }
+    // finalStr.append(str1);
+    // str=finalStr;
 
+    int i=str.length()-1;
+    while(str[i]!='#')
+    i--;
+    int j=i-1;
+    while(j>=0){
+        if(str[j]!='#')
+        swap(str[j--],str[i--]);
+        else
+        j--;
+    }
+   }
+   string compresssionString(string str){
+    map<char,int> map;
+    string ans;
+
+
+    // for(int i=0;i<str.length();i++)
+    // map[str[i]]++;
+    // for(auto it:map){
+    //     ans.push_back(it.first);
+    //     ans.append(to_string(it.second));
+    // }
+
+    int count=0;
+    char ch;
+    for(int i=0;i<str.length();i++){
+        if(count==0){
+            ch=str[i];
+            count=2;
+        }
+        else if(ch==str[i])
+        count++;
+        else{
+            ans.push_back(ch);
+            ans.append(to_string(count));
+            count=0;
+        }
+    }
+    return ans;
+   }
+
+   void spiralPattern(vector<vector<int>> arr){
+    int rs=0,cs=0,re=arr.size()-1,ce=arr[0].size()-1,k=0;
+    while(k<arr.size()*arr[0].size()){
+        for(int i=cs;i<=ce;i++){
+            cout<<arr[rs][i]<<" ";
+            k++;
+        }
+        rs++;
+        for(int i=rs;i<=re;i++){
+            cout<<arr[i][ce]<<" ";
+            k++;
+        }
+        ce--;
+        for(int i=ce;i>=cs;i--){
+            cout<<arr[re][i]<<" ";
+            k++;
+        }
+        re--;
+        for(int i=re;i>=rs;i--){
+            cout<<arr[i][cs]<<" ";
+            k++;
+        }
+        cs++;
+    }
+   }
+
+   float equation(float a,float b){
+    return pow(a,3)+pow(a,2*b)+pow(2*a,2*b)+pow(2*a*b,2)+pow(a*b,2)+pow(b,3);
+   }
 int main()
 {
 
@@ -234,7 +351,7 @@ int main()
 
     // Sorting 
 
-    vector<int> array={20,50,30,10,60,90,100,40};
+    // vector<int> array={20,50,30,10,60,90,100,40};
     // bubbleSort(array);
     // insertionSort(array);
     // quickSort(array,0,array.size()-1);
@@ -245,13 +362,27 @@ int main()
 
     // 1) infix to postfix
 
-    string infix1="a+b*(c^d-e)^(f+g*h)-i";
-    string infix2="A*(B+C)/D";
+    // string infix1="a+b*(c^d-e)^(f+g*h)-i";
+    // string infix2="A*(B+C)/D";
     // cout<<infixToPostfix(infix1)<<endl;
     // cout<<infixToPostfix(infix2);
 
     // 2) infix to prefix
-    string infix3="*-A/BC-/AKL";
-    cout<<infixToPrefix(infix3);
+    // string infix3="*-A/BC-/AKL";
+    // cout<<infixToPrefix(infix3);
+
+    // cout<<decodeMessage("1 2 3 . # 1 # 2 # 3");
+    // string str="move#hash#to#front";
+    // moveToFront(str);
+    // cout<<str;
+
+    // string comp="aabbbbeeeeffggg";
+    // cout<<compresssionString(comp);
+
+    // vector<vector<int>> arr={{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16},{17,18,19,20}};
+    // spiralPattern(arr);
+
+
+    cout<<equation(1,2);
     return 0;
 }

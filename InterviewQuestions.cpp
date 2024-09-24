@@ -596,6 +596,33 @@ using namespace std;
         return false;
         return true;
     }
+
+    int kadaneAlgo(vector<int> arr){
+        int sum=0,maxSum=arr[0];
+        for(int i=0;i<arr.size();i++){
+            sum+=arr[i];
+            maxSum=max(maxSum,sum);
+            if(sum<0)
+            sum=0;
+        }
+        return maxSum;
+    }
+
+    void rotateMatrix(vector<vector<int>> &array){
+        vector<vector<int>> ans(array.size(),vector<int>(array[0].size()));
+        for(int i=0;i<array.size();i++){
+            for(int j=0;j<i+1;j++)
+            swap(array[i][j],array[j][i]);
+        }
+        int l=0,h=array[0].size()-1,i=0;
+        while(l<h){
+            for(int i=0;i<array.size();i++){
+                swap(array[l][i],array[h][i]);
+            }
+            l++,h--;
+        }
+
+    }
 int main()
 {
 
@@ -713,7 +740,22 @@ int main()
     // string str="abcabcbb";
     // cout<<longestSubstring(str);
 
-    string str="[({})]";
-    if()
+    // string str="[(})]";
+    // if(wellFormnessOfParanthesis(str))
+    // cout<<"balanced"<<endl;
+    // else
+    // cout<<"Not Balanced"<<endl;
+
+
+    // vector<int> array={-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    // cout<<kadaneAlgo(array);
+
+    vector<vector<int>> arr={{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    rotateMatrix(arr);
+    for(int i=0;i<arr.size();i++){
+        for(int j=0;j<arr[0].size();j++)
+        cout<<arr[i][j]<<" ";
+        cout<<endl;
+    }
     return 0;
 }

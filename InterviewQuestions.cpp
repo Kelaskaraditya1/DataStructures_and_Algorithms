@@ -495,6 +495,107 @@ using namespace std;
             swap(str[j],str[i--]);
         }
     }
+
+    bool matrixCheck(vector<vector<int>> arr1,vector<vector<int>> arr2){
+        if((arr1.size()!=arr2.size())&&(arr1[0].size()!=arr2[0].size()))
+        return false;
+        for(int i=0;i<arr1.size();i++){
+            for(int j=0;j<arr1[0].size();j++){
+                if(arr1[i][j]!=arr2[i][j])
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void pythagoreanTriplet(int n){
+        for(int a=1;a<=n;a++){
+            for(int b=a;b<=n;b++){
+                int c=sqrt(a*a+b*b);
+                if((c*c)==(a*a+b*b))
+                cout<<a<<" "<<b<<" "<<c<<endl;
+            }
+        }
+    }
+
+    bool stringRotation(string str1,string str2){
+        sort(str1.begin(),str1.end());
+        sort(str2.begin(),str2.end());
+        if(str1==str2)
+        return true;
+        return false;
+    }
+    class Node{
+        public:
+        int data;
+        Node* next;
+        Node(int data){
+            this->data=data;
+            this->next=NULL;
+        }
+        Node(){
+
+        }
+    };
+
+    Node* start=NULL;
+    void insertValue(int data){
+        Node* newNode = new Node(data);
+        if(start==NULL)
+        start=newNode;
+        else{
+            Node* tn = start;
+            while(tn->next!=NULL)
+            tn=tn->next;
+            tn->next=newNode;
+        }
+    }
+    void reverseLL(){
+        Node* prev=NULL;
+        Node* tn = start;
+        while(tn->next!=NULL){
+            Node* next=tn->next;
+            tn->next=prev;
+            prev=tn;
+            tn=next;
+        }
+    }
+    void printLL(){
+        if(start!=NULL){
+            Node* tn = start;
+            while(tn->next!=NULL){
+                cout<<tn->data<<" ";
+                tn=tn->next;
+            }
+        }
+    }
+    string longestSubstring(string str){
+        string ans;
+        for(int i=0;i<str.length();i++){
+            if(ans.empty()||ans.find(str[i])==string::npos)
+            ans.push_back(str[i]);
+        }
+        return ans;
+    }
+
+    bool wellFormnessOfParanthesis(string str){
+        stack<char> stack;
+        for(int i=0;i<str.length();i++){
+            if((str[i]=='(')||(str[i]=='{')||(str[i]=='['))
+            stack.push(str[i]);
+            else{
+                if(stack.empty())
+                return false;
+                char ch=stack.top();
+                stack.pop();
+                if((str[i]==')'&&ch!='(')||(str[i]=='}'&&ch!='{')||(str[i]==']'&&ch!='['))
+                return false;
+            }
+        }
+        if(!stack.empty())
+        return false;
+        return true;
+    }
 int main()
 {
 
@@ -587,8 +688,32 @@ int main()
     //     dealership--;
     // }
 
-    string str="move#to#front#fight";
-    moveToFront(str);
-    cout<<str;
+    // string str="move#to#front#fight";
+    // moveToFront(str);
+    // cout<<str;
+
+    // pythagoreanTriplet(20);
+
+    // string str1="abcd";
+    // string str2="cdab";
+    // if(stringRotation(str1,str2))
+    // cout<<"Strings are equal"<<endl;
+    // else
+    // cout<<"Strings are not equal"<<endl;
+
+    // insertValue(10);
+    // insertValue(20);
+    // insertValue(30);
+    // insertValue(40);
+    // insertValue(50);
+    // insertValue(60);
+    // reverseLL();
+    // printLL();
+
+    // string str="abcabcbb";
+    // cout<<longestSubstring(str);
+
+    string str="[({})]";
+    if()
     return 0;
 }

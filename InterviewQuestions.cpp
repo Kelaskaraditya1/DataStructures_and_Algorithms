@@ -3,426 +3,498 @@
 #include<vector>
 #include<cmath>
 using namespace std;
-bool linearSearch(vector<int> array,int target){
-    for(int i=0;i<array.size();i++){
-        if(array[i]==target)
-        return true;
-    }
-    return false;
-}
-bool binarySearch(vector<int> array,int target){
-    int low=0,high=array.size()-1;
-    while(low<=high){
-        int mid=(low+high)/2;
-        if(array[mid]==target)
-        return true;
-        else if(array[mid]<target)
-        low=mid+1;
-        else
-        high=mid-1;
-    }
-    return false;
-}
-void bubbleSort(vector<int> &array){
-    for(int i=0;i<array.size();i++){
-        for(int j=i;j<array.size();j++){
-            if(array[i]>array[j])
-            swap(array[i],array[j]);
-        }
-    }
-}
+// bool linearSearch(vector<int> array,int target){
+//     for(int i=0;i<array.size();i++){
+//         if(array[i]==target)
+//         return true;
+//     }
+//     return false;
+// }
+// bool binarySearch(vector<int> array,int target){
+//     int low=0,high=array.size()-1;
+//     while(low<=high){
+//         int mid=(low+high)/2;
+//         if(array[mid]==target)
+//         return true;
+//         else if(array[mid]<target)
+//         low=mid+1;
+//         else
+//         high=mid-1;
+//     }
+//     return false;
+// }
+// void bubbleSort(vector<int> &array){
+//     for(int i=0;i<array.size();i++){
+//         for(int j=i;j<array.size();j++){
+//             if(array[i]>array[j])
+//             swap(array[i],array[j]);
+//         }
+//     }
+// }
 
-// go on finding the minimum index and swap it with the i'th index
+// // go on finding the minimum index and swap it with the i'th index
 
-void selectionSort(vector<int> &array){
-    for(int i=0;i<array.size()-1;i++){
-        int min=i;
-        for(int j=i;j<array.size();j++){
-            if(array[j]<array[min])
-            min=j;
-        }
-        swap(array[min],array[i]);
-    }
-}
+// void selectionSort(vector<int> &array){
+//     for(int i=0;i<array.size()-1;i++){
+//         int min=i;
+//         for(int j=i;j<array.size();j++){
+//             if(array[j]<array[min])
+//             min=j;
+//         }
+//         swap(array[min],array[i]);
+//     }
+// }
 
-// get the element to the correct position go on swaping j and j-1
+// // get the element to the correct position go on swaping j and j-1
 
-void insertionSort(vector<int> &array){
-    for(int i=0;i<array.size();i++){
-        int j=i;
-        while(j>0&&array[j]<array[j-1]){
-            swap(array[j],array[j-1]);
-            j--;
-        }
-    }
-}
-
-
-// Merge Sort 
-
-void merge(vector<int> &arr,int low,int mid,int high){
-    vector<int> temp;
-    int left=low,right=mid+1;
-    while(left<=mid&&right<=high){
-        if(arr[left]<=arr[right])
-        temp.push_back(arr[left++]);
-        else
-        temp.push_back(arr[right++]);
-    }
-    while(left<=mid)
-    temp.push_back(arr[left++]);
-    while(right<=high)
-    temp.push_back(arr[right++]);
-    for(int i=low;i<=high;i++)
-    arr[i]=temp[i-low];
-}
-void mergeSort(vector<int> &arr,int low,int high){
-    if(low>=high)
-    return;
-    int mid=(low+high)/2;
-    mergeSort(arr,low,mid);
-    mergeSort(arr,mid+1,high);
-    merge(arr,low,mid,high);
-}
+// void insertionSort(vector<int> &array){
+//     for(int i=0;i<array.size();i++){
+//         int j=i;
+//         while(j>0&&array[j]<array[j-1]){
+//             swap(array[j],array[j-1]);
+//             j--;
+//         }
+//     }
+// }
 
 
-// Quick Sort
+// // Merge Sort 
 
-int partition(vector<int>& arr, int low, int high) {
-    int pivot = arr[low];
-    int i = low, j = high;
-    while (i < j) {
-        while (i <= high && arr[i] <= pivot)
-            i++;
-        while (j >= low && arr[j] > pivot)
-            j--;
-        if (i < j)
-            swap(arr[i], arr[j]);
-    }
-    swap(arr[low], arr[j]);  // Correctly place pivot at its correct position
-    return j;
-}
-
-void quickSort(vector<int>& arr, int low, int high) {
-    if (low < high) {
-        int partitionIndex = partition(arr, low, high);
-        quickSort(arr, low, partitionIndex - 1);  // Sort left side of pivot
-        quickSort(arr, partitionIndex + 1, high);  // Sort right side of pivot
-    }
-}
-
-void printArray(vector<int> &array){
-    for(auto it:array)
-    cout<<it<<" ";
-}
-
-// infix , prefix , postfix conversions.
-
-// Infix to postfix.priority wala concept.
-
-  int priority(char ch){
-      if(ch=='^')
-      return 3;
-      else if(ch=='+'||ch=='-')
-      return 1;
-      else if(ch=='*'|| ch=='/')
-      return 2;
-      return 0;
-  }
-    string infixToPostfix(string str){
-        int i=0;
-        stack<char> stack;
-        string postfix="";
-        while(i<str.length()){
-             if((str[i]>='a'&&str[i]<='z')||(str[i]>='A'&&str[i]<='Z')||(str[i]>='0'&&str[i]<='9'))
-            postfix.push_back(str[i]);
-            else if(str[i]=='(')
-            stack.push(str[i]);
-            else if(str[i]==')'){
-                while(!stack.empty()&&stack.top()!='('){
-                    postfix.push_back(stack.top());
-                    stack.pop();
-                }
-                stack.pop();
-            }
-            else {
-                if(!stack.empty()&&priority(str[i])<=priority(stack.top())){
-                    postfix.push_back(stack.top());
-                    stack.pop();
-                }
-                stack.push(str[i]);
-            }
-            i++;
-        }
-                while(!stack.empty()){
-            postfix.push_back(stack.top());
-            stack.pop();
-        }
-        return postfix;
-    }
-
-    // indfix to prefix.
-    /*
-    1) reverse the infix expression change (->) and )->(
-    2) convert to postfix in controlled env i.e prio(str[i])<prio(stack.top())
-        and if(str[i]=='^)
-        prio(stack.top()>=str[i])
-    3) reverse the statement.
-    */
-   string reverse(string &str){
-    int low=0,high=str.length()-1;
-    while(low<=high){
-        if(str[low]=='('&&str[high]==')')
-        low++,high--;
-        swap(str[low++],str[high--]);
-    }
-   }
-   string infixToPrefix(string str){
-    reverse(str);
-    int i=0;
-    stack<char> stack;
-    string prefix="";
-    while(i<str.length()){
-             if((str[i]>='a'&&str[i]<='z')||(str[i]>='A'&&str[i]<='Z')||(str[i]>='0'&&str[i]<='9'))
-            prefix.push_back(str[i]);
-            else if(str[i]=='(')
-            stack.push(str[i]);
-            else if(str[i]==')'){
-                while(!stack.empty()&&stack.top()!='('){
-                    prefix.push_back(stack.top());
-                    stack.pop();
-                }
-                stack.pop();
-            }
-            else{
-                if(str[i]=='^'){
-                    if(!stack.empty()&&priority(stack.top())>=priority(str[i])){
-                        prefix.push_back(stack.top());
-                        stack.pop();
-                    }
-                }
-                else{
-                        if(priority(str[i])<stack.top()&&!stack.empty()){
-                            prefix.push_back(stack.top());
-                            stack.pop();
-                        }
-                    }
-                    stack.push(str[i]); 
-            }  
-            i++;  
-        }
-        while(!stack.empty()){
-            prefix.push_back(stack.top());
-            stack.pop();
-        }
-        reverse(prefix);
-        return prefix;
-   }
-   string decodeMessage(string str,int length){
-    if(length==0)
-    return NULL;
-    int i=0;
-    string ans;
-    while(i<str.length()){
-        if(isdigit(str[i])){
-            int num=str[i]-'0';
-            char ch = 65+num-1;
-            ans.push_back(ch);
-            i++;
-        }
-        else if(str[i]=='_'){
-            ans.push_back(' ');
-            i++;
-        }
-                else if(str[i]=='#'){
-            int start=i+1,j=i+1;
-            while(j<str.length()&&str[j]!='#')
-            j++;
-            string subStr=str.substr(start,j-start);
-            ans.append(subStr);
-            i=j;
-        }
-        else{
-            ans.push_back(str[i]);
-            i++;
-        }
-    }
-    return ans;
-   }
-   void moveToFront(string &str){
-    // int count=0;
-    // string str1="";
-    // string finalStr="";
-    // for(int i=0;i<str.length();i++){
-    //     if(str[i]=='#')
-    //     count++;
-    //     else
-    //     str1.push_back(str[i]);
-    // }
-    // while(count!=0){
-    //     finalStr.push_back('#');
-    //     count--;
-    // }
-    // finalStr.append(str1);
-    // str=finalStr;
-
-    int i=str.length()-1;
-    while(str[i]!='#')
-    i--;
-    int j=i-1;
-    while(j>=0){
-        if(str[j]!='#')
-        swap(str[j--],str[i--]);
-        else
-        j--;
-    }
-   }
-   string compresssionString(string str){
-    map<char,int> map;
-    string ans;
+// void merge(vector<int> &arr,int low,int mid,int high){
+//     vector<int> temp;
+//     int left=low,right=mid+1;
+//     while(left<=mid&&right<=high){
+//         if(arr[left]<=arr[right])
+//         temp.push_back(arr[left++]);
+//         else
+//         temp.push_back(arr[right++]);
+//     }
+//     while(left<=mid)
+//     temp.push_back(arr[left++]);
+//     while(right<=high)
+//     temp.push_back(arr[right++]);
+//     for(int i=low;i<=high;i++)
+//     arr[i]=temp[i-low];
+// }
+// void mergeSort(vector<int> &arr,int low,int high){
+//     if(low>=high)
+//     return;
+//     int mid=(low+high)/2;
+//     mergeSort(arr,low,mid);
+//     mergeSort(arr,mid+1,high);
+//     merge(arr,low,mid,high);
+// }
 
 
-    // for(int i=0;i<str.length();i++)
-    // map[str[i]]++;
-    // for(auto it:map){
-    //     ans.push_back(it.first);
-    //     ans.append(to_string(it.second));
-    // }
+// // Quick Sort
 
-    int count=0;
-    char ch;
-    for(int i=0;i<str.length();i++){
-        if(count==0){
-            ch=str[i];
-            count=2;
-        }
-        else if(ch==str[i])
-        count++;
-        else{
-            ans.push_back(ch);
-            ans.append(to_string(count));
-            count=0;
-        }
-    }
-    return ans;
-   }
+// int partition(vector<int>& arr, int low, int high) {
+//     int pivot = arr[low];
+//     int i = low, j = high;
+//     while (i < j) {
+//         while (i <= high && arr[i] <= pivot)
+//             i++;
+//         while (j >= low && arr[j] > pivot)
+//             j--;
+//         if (i < j)
+//             swap(arr[i], arr[j]);
+//     }
+//     swap(arr[low], arr[j]);  // Correctly place pivot at its correct position
+//     return j;
+// }
 
-   void spiralPattern(vector<vector<int>> arr){
-    int rs=0,cs=0,re=arr.size()-1,ce=arr[0].size()-1,k=0;
-    while(k<arr.size()*arr[0].size()){
-        for(int i=cs;i<=ce;i++){
-            cout<<arr[rs][i]<<" ";
-            k++;
-        }
-        rs++;
-        for(int i=rs;i<=re;i++){
-            cout<<arr[i][ce]<<" ";
-            k++;
-        }
-        ce--;
-        for(int i=ce;i>=cs;i--){
-            cout<<arr[re][i]<<" ";
-            k++;
-        }
-        re--;
-        for(int i=re;i>=rs;i--){
-            cout<<arr[i][cs]<<" ";
-            k++;
-        }
-        cs++;
-    }
-   }
+// void quickSort(vector<int>& arr, int low, int high) {
+//     if (low < high) {
+//         int partitionIndex = partition(arr, low, high);
+//         quickSort(arr, low, partitionIndex - 1);  // Sort left side of pivot
+//         quickSort(arr, partitionIndex + 1, high);  // Sort right side of pivot
+//     }
+// }
 
-   float equation(float a,float b){
-    return pow(a,3)+pow(a,2*b)+pow(2*a,2*b)+pow(2*a*b,2)+pow(a*b,2)+pow(b,3);
-   }
+// void printArray(vector<int> &array){
+//     for(auto it:array)
+//     cout<<it<<" ";
+// }
 
-   void pythagroeanTriplet(int n){
-    for(int a=1;a<=n;a++){
-        for(int b=a;b<=n;b++){
-            int c=sqrt((a*a)+(b*b));
-            if((c*c==(a*a)+(b*b))&&c<=n)
-                cout<<a<<" "<<b<<" "<<c<<endl;
-        }
-    }
-   }
+// // infix , prefix , postfix conversions.
 
-   bool balancedParanthesis(string str){
-    stack<char> stack;
-    for(int i=0;i<str.length();i++){
-        if(str[i]=='('||str[i]=='{'||str[i]=='[')
-        stack.push(str[i]);
-        else if((str[i]==')'&&stack.top()!='(')||(str[i]=='}'&&stack.top()!='{')||(str[i]==']'&&stack.top()!='['))
-        return false;
-        else
-        stack.pop();
-    }
-    if(!stack.empty())
-    return false;
-    return true;
-   }
+// // Infix to postfix.priority wala concept.
+
+//   int priority(char ch){
+//       if(ch=='^')
+//       return 3;
+//       else if(ch=='+'||ch=='-')
+//       return 1;
+//       else if(ch=='*'|| ch=='/')
+//       return 2;
+//       return 0;
+//   }
+//     string infixToPostfix(string str){
+//         int i=0;
+//         stack<char> stack;
+//         string postfix="";
+//         while(i<str.length()){
+//              if((str[i]>='a'&&str[i]<='z')||(str[i]>='A'&&str[i]<='Z')||(str[i]>='0'&&str[i]<='9'))
+//             postfix.push_back(str[i]);
+//             else if(str[i]=='(')
+//             stack.push(str[i]);
+//             else if(str[i]==')'){
+//                 while(!stack.empty()&&stack.top()!='('){
+//                     postfix.push_back(stack.top());
+//                     stack.pop();
+//                 }
+//                 stack.pop();
+//             }
+//             else {
+//                 if(!stack.empty()&&priority(str[i])<=priority(stack.top())){
+//                     postfix.push_back(stack.top());
+//                     stack.pop();
+//                 }
+//                 stack.push(str[i]);
+//             }
+//             i++;
+//         }
+//                 while(!stack.empty()){
+//             postfix.push_back(stack.top());
+//             stack.pop();
+//         }
+//         return postfix;
+//     }
+
+//     // indfix to prefix.
+//     /*
+//     1) reverse the infix expression change (->) and )->(
+//     2) convert to postfix in controlled env i.e prio(str[i])<prio(stack.top())
+//         and if(str[i]=='^)
+//         prio(stack.top()>=str[i])
+//     3) reverse the statement.
+//     */
+//    string reverse(string &str){
+//     int low=0,high=str.length()-1;
+//     while(low<=high){
+//         if(str[low]=='('&&str[high]==')')
+//         low++,high--;
+//         swap(str[low++],str[high--]);
+//     }
+//    }
+//    string infixToPrefix(string str){
+//     reverse(str);
+//     int i=0;
+//     stack<char> stack;
+//     string prefix="";
+//     while(i<str.length()){
+//              if((str[i]>='a'&&str[i]<='z')||(str[i]>='A'&&str[i]<='Z')||(str[i]>='0'&&str[i]<='9'))
+//             prefix.push_back(str[i]);
+//             else if(str[i]=='(')
+//             stack.push(str[i]);
+//             else if(str[i]==')'){
+//                 while(!stack.empty()&&stack.top()!='('){
+//                     prefix.push_back(stack.top());
+//                     stack.pop();
+//                 }
+//                 stack.pop();
+//             }
+//             else{
+//                 if(str[i]=='^'){
+//                     if(!stack.empty()&&priority(stack.top())>=priority(str[i])){
+//                         prefix.push_back(stack.top());
+//                         stack.pop();
+//                     }
+//                 }
+//                 else{
+//                         if(priority(str[i])<stack.top()&&!stack.empty()){
+//                             prefix.push_back(stack.top());
+//                             stack.pop();
+//                         }
+//                     }
+//                     stack.push(str[i]); 
+//             }  
+//             i++;  
+//         }
+//         while(!stack.empty()){
+//             prefix.push_back(stack.top());
+//             stack.pop();
+//         }
+//         reverse(prefix);
+//         return prefix;
+//    }
+//    string decodeMessage(string str,int length){
+//     if(length==0)
+//     return NULL;
+//     int i=0;
+//     string ans;
+//     while(i<str.length()){
+//         if(isdigit(str[i])){
+//             int num=str[i]-'0';
+//             char ch = 65+num-1;
+//             ans.push_back(ch);
+//             i++;
+//         }
+//         else if(str[i]=='_'){
+//             ans.push_back(' ');
+//             i++;
+//         }
+//                 else if(str[i]=='#'){
+//             int start=i+1,j=i+1;
+//             while(j<str.length()&&str[j]!='#')
+//             j++;
+//             string subStr=str.substr(start,j-start);
+//             ans.append(subStr);
+//             i=j;
+//         }
+//         else{
+//             ans.push_back(str[i]);
+//             i++;
+//         }
+//     }
+//     return ans;
+//    }
+//    void moveToFront(string &str){
+//     // int count=0;
+//     // string str1="";
+//     // string finalStr="";
+//     // for(int i=0;i<str.length();i++){
+//     //     if(str[i]=='#')
+//     //     count++;
+//     //     else
+//     //     str1.push_back(str[i]);
+//     // }
+//     // while(count!=0){
+//     //     finalStr.push_back('#');
+//     //     count--;
+//     // }
+//     // finalStr.append(str1);
+//     // str=finalStr;
+
+//     int i=str.length()-1;
+//     while(str[i]!='#')
+//     i--;
+//     int j=i-1;
+//     while(j>=0){
+//         if(str[j]!='#')
+//         swap(str[j--],str[i--]);
+//         else
+//         j--;
+//     }
+//    }
+//    string compresssionString(string str){
+//     map<char,int> map;
+//     string ans;
 
 
-//  maximum sum of largest subarray 
-int kadaneAlgo(vector<int> array) {
-    int maxSum = array[0]; 
-    int sum = 0; 
-    for (int i = 0; i < array.size(); i++) {
-        sum +=array[i];
-        maxSum = max(maxSum, sum);
-        if (sum < 0)
-         sum = 0;
-    }
-    return maxSum;
-}
+//     // for(int i=0;i<str.length();i++)
+//     // map[str[i]]++;
+//     // for(auto it:map){
+//     //     ans.push_back(it.first);
+//     //     ans.append(to_string(it.second));
+//     // }
 
-vector<int> intersection(vector<int> a1,vector<int> a2){
-    vector<int> result;
-    int i=0,j=0;
-    while(i<a1.size()&&j<a2.size()){
-        if(a1[i]<a2[j])
-        i++;
-        else if(a2[j]<a1[i])
-        j++;
-        else{
-            result.push_back(a1[i]);
-            i++,j++;
-        }
-    }
-    return result;
-}
+//     int count=0;
+//     char ch;
+//     for(int i=0;i<str.length();i++){
+//         if(count==0){
+//             ch=str[i];
+//             count=2;
+//         }
+//         else if(ch==str[i])
+//         count++;
+//         else{
+//             ans.push_back(ch);
+//             ans.append(to_string(count));
+//             count=0;
+//         }
+//     }
+//     return ans;
+//    }
 
-vector<vector<int>> mergeIntervals(vector<vector<int>> array){
-    // brute force approach
-    vector<vector<int>> ans;
-    sort(array.begin(),array.end());
-    // for(int i=0;i<array.size();i++){
-    //     int start=array[i][0];
-    //     int end=array[i][1];
-    //     if(!ans.empty()&&end<=ans.back()[1])
-    //     continue;
-    //     for(int j=i+1;j<array.size();j++){
-    //         if(array[j][0]<=end)
-    //         end=max(end,array[j][1]);
-    //         else
-    //         break;
-    //     }
-    //     ans.push_back({start,end});
-    // }
-    // return ans;
+//    void spiralPattern(vector<vector<int>> arr){
+//     int rs=0,cs=0,re=arr.size()-1,ce=arr[0].size()-1,k=0;
+//     while(k<arr.size()*arr[0].size()){
+//         for(int i=cs;i<=ce;i++){
+//             cout<<arr[rs][i]<<" ";
+//             k++;
+//         }
+//         rs++;
+//         for(int i=rs;i<=re;i++){
+//             cout<<arr[i][ce]<<" ";
+//             k++;
+//         }
+//         ce--;
+//         for(int i=ce;i>=cs;i--){
+//             cout<<arr[re][i]<<" ";
+//             k++;
+//         }
+//         re--;
+//         for(int i=re;i>=rs;i--){
+//             cout<<arr[i][cs]<<" ";
+//             k++;
+//         }
+//         cs++;
+//     }
+//    }
 
-    // optimus prime appraoch  just keep on changing the last digit.
+//    float equation(float a,float b){
+//     return pow(a,3)+pow(a,2*b)+pow(2*a,2*b)+pow(2*a*b,2)+pow(a*b,2)+pow(b,3);
+//    }
+
+//    void pythagroeanTriplet(int n){
+//     for(int a=1;a<=n;a++){
+//         for(int b=a;b<=n;b++){
+//             int c=sqrt((a*a)+(b*b));
+//             if((c*c==(a*a)+(b*b))&&c<=n)
+//                 cout<<a<<" "<<b<<" "<<c<<endl;
+//         }
+//     }
+//    }
+
+//    bool balancedParanthesis(string str){
+//     stack<char> stack;
+//     for(int i=0;i<str.length();i++){
+//         if(str[i]=='('||str[i]=='{'||str[i]=='[')
+//         stack.push(str[i]);
+//         else if((str[i]==')'&&stack.top()!='(')||(str[i]=='}'&&stack.top()!='{')||(str[i]==']'&&stack.top()!='['))
+//         return false;
+//         else
+//         stack.pop();
+//     }
+//     if(!stack.empty())
+//     return false;
+//     return true;
+//    }
+
+
+// //  maximum sum of largest subarray 
+// int kadaneAlgo(vector<int> array) {
+//     int maxSum = array[0]; 
+//     int sum = 0; 
+//     for (int i = 0; i < array.size(); i++) {
+//         sum +=array[i];
+//         maxSum = max(maxSum, sum);
+//         if (sum < 0)
+//          sum = 0;
+//     }
+//     return maxSum;
+// }
+
+// vector<int> intersection(vector<int> a1,vector<int> a2){
+//     vector<int> result;
+//     int i=0,j=0;
+//     while(i<a1.size()&&j<a2.size()){
+//         if(a1[i]<a2[j])
+//         i++;
+//         else if(a2[j]<a1[i])
+//         j++;
+//         else{
+//             result.push_back(a1[i]);
+//             i++,j++;
+//         }
+//     }
+//     return result;
+// }
+
+// vector<vector<int>> mergeIntervals(vector<vector<int>> array){
+//     // brute force approach
+//     vector<vector<int>> ans;
+//     sort(array.begin(),array.end());
+//     // for(int i=0;i<array.size();i++){
+//     //     int start=array[i][0];
+//     //     int end=array[i][1];
+//     //     if(!ans.empty()&&end<=ans.back()[1])
+//     //     continue;
+//     //     for(int j=i+1;j<array.size();j++){
+//     //         if(array[j][0]<=end)
+//     //         end=max(end,array[j][1]);
+//     //         else
+//     //         break;
+//     //     }
+//     //     ans.push_back({start,end});
+//     // }
+//     // return ans;
+
+//     // optimus prime appraoch  just keep on changing the last digit.
 
     
-    for(int i=0;i<array.size();i++){
-        if(ans.empty()||array[i][0]>ans.back()[1])
-        ans.push_back({array[i][0],array[i][1]});
-        else
-        ans.back()[1]=max(array[i][1],ans.back()[1]);
-    }
-    return ans;
-}
+//     for(int i=0;i<array.size();i++){
+//         if(ans.empty()||array[i][0]>ans.back()[1])
+//         ans.push_back({array[i][0],array[i][1]});
+//         else
+//         ans.back()[1]=max(array[i][1],ans.back()[1]);
+//     }
+//     return ans;
+// }
+// *******************************************************************************************************************************************************
 
+    string countOccurances(string str){
+        string ans;
+        map<char,int> map;
+        for(int i=0;i<str.length();i++)
+        map[str[i]]++;
+        for(auto it:map){
+            ans.push_back(it.first);
+            ans.append(to_string(it.second));
+        }
+        return ans;
+    }
+
+    void spiralTraversal(vector<vector<int>> array){
+        int rs=0,cs=0,re=array.size()-1,ce=array[0].size()-1,k=0;
+        while(k<array.size()*array[0].size()-1){
+            for(int i=cs;i<=ce;i++){
+                cout<<array[rs][i]<<" ";
+                k++;
+            }
+            rs++;
+            for(int i=rs;i<=re;i++){
+                cout<<array[i][ce]<<" ";
+                k++;
+            }
+            ce--;
+            for(int i=ce;i>=cs;i--){
+                cout<<array[re][i]<<" ";
+                k++;
+            }
+            re--;
+            for(int i=re;i>=rs;i--){
+                cout<<array[i][cs]<<" ";
+                k++;
+            }
+            cs++;
+        }
+    }
+
+    void countOccurancesMark1(vector<int> arr){
+        // map<int,int> map;
+        // for(int i=0;i<arr.size();i++)
+        // map[arr[i]]++;
+        // for(auto it:map){
+        //     cout<<"the no "<<it.first<<" and it's count "<<it.second;
+        //     cout<<endl;
+        // }
+
+        // without map
+        sort(arr.begin(),arr.end());
+        int element =arr[0],count=1;
+        for(int i=0;i<arr.size();i++){
+            if(arr[i]==element)
+            count++;
+            else{
+                cout<<"The element is "<<element<<" and the count is "<<count<<endl;
+                element=arr[i];
+                count=1;
+            }
+        }
+            
+    }
+
+    void moveToFront(string &str){
+        int i=str.length()-1;
+        while(str[i]!='#')
+        i--;
+        for(int j=i-1;j>=0;j--){
+            if(str[j]!='#')
+            swap(str[j],str[i--]);
+        }
+    }
 int main()
 {
 
@@ -487,12 +559,36 @@ int main()
     // for(auto it:ans)
     // cout<<it<<" ";
 
-    vector<vector<int>> array={{1,3},{2,4},{2,6},{8,9},{8,10},{9,11},{15,18},{16,17}};
-    vector<vector<int>> ans = mergeIntervals(array);
-    for(int i=0;i<ans.size();i++){
-        for(int j=0;j<ans[0].size();j++)
-        cout<<ans[i][j]<<" ";
-        cout<<endl;
-    }
+    // vector<vector<int>> array={{1,3},{2,4},{2,6},{8,9},{8,10},{9,11},{15,18},{16,17}};
+    // vector<vector<int>> ans = mergeIntervals(array);
+    // for(int i=0;i<ans.size();i++){
+    //     for(int j=0;j<ans[0].size();j++)
+    //     cout<<ans[i][j]<<" ";
+    //     cout<<endl;
+    // }
+
+    // string str="aabbbbeeeeffggg";
+    // cout<<countOccurances(str);
+
+    // vector<vector<int>> arr={{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16},{17,18,19,20}};
+    // spiralTraversal(arr);
+
+
+    // vector<int> arr={1,2,3,3,4,1,4,5,1,2};
+    // countOccurancesMark1(arr);
+
+    // int dealership;
+    // cin>>dealership;
+    // while(dealership!=0){
+    //     int noCar,noBike;
+    //     cin>>noCar;
+    //     cin>>noBike;
+    //     cout<<"Total no of Tyers are "<<(noCar*4)+(noBike*2);
+    //     dealership--;
+    // }
+
+    string str="move#to#front#fight";
+    moveToFront(str);
+    cout<<str;
     return 0;
 }

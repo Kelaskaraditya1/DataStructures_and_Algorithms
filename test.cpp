@@ -1590,6 +1590,57 @@ int* sortArray(int arr[],int no){
     sort(arr,arr+no);
     return arr;
 }
+class A{
+    public:
+    virtual void show()=0;
+    void display(){
+        cout<<"I am Ironman"<<endl;
+    } 
+};
+class B:public A{
+    public:
+    void show(){
+        cout<<"I am Batman"<<endl;
+    }
+    void greetings(){
+        cout<<"Greetings,I am Optimus Prime"<<endl;
+    }
+};
+class Bank{
+    public:
+    static int balance;
+    static void deposite(int amount){
+        try{
+        if(amount<=0)
+        throw invalid_argument("Enter amount greater than 0");
+        balance+=amount;
+        cout<<"Amount Deposited Sucessfully"<<endl;
+        cout<<"Your Current Balance is:"<<balance<<endl;
+        cout<<endl;
+        }
+        catch(exception &e){
+            cout<<e.what();
+        }
+
+    }
+    static void withdraw(int amount){
+        try{
+        if(amount<=0)
+        throw invalid_argument("Enter amount greater than 0");
+        else if(amount>balance)
+        throw runtime_error("Insufficient Balance");
+        balance-=amount;
+        cout<<"Amount Withdrawn Sucessfully"<<endl;
+        cout<<"Your Current Balance is:"<<balance<<endl;
+        cout<<endl;
+        }
+        catch(exception &e){
+            cout<<e.what();
+        }
+
+    }
+};
+int Bank::balance=1000;
 int main()
 {
     // int no,key;
@@ -1943,12 +1994,49 @@ int main()
         // for(int i=0;i<array.size();i++)
         // cout<<a[i]<<" ";
 
-        int* a = new int[10];
-        for(int i=0;i<10;i++)
-        cin>>a[i];
-        int *b=sortArray(a,10);
-        for(int i=0;i<10;i++)
-        cout<<b[i]<<" ";
+        // int* a = new int[10];
+        // for(int i=0;i<10;i++)
+        // cin>>a[i];
+        // int *b=sortArray(a,10);
+        // for(int i=0;i<10;i++)
+        // cout<<b[i]<<" ";
+
+        // B b ;
+        // b.display();
+        // b.greetings();
+        // b.show();
+
+        // A* a = &b;
+        // a->display();
+        // a->show();
+        // Bank::withdraw(100);
+
+         // File Handling
+
+         // for writting the data to the file
+
+        //  ofstream file;
+        //  file.open("C:\\Users\\Aditya\\Desktop\\Programing files all\\C++ Final Codes\\text.txt");
+        //  file<<"I am ironman";
+        //  cout<<"Data added to the file Successfully"<<endl;
+        //  file.close();
+
+        // for reading the data from the file.
+
+         ifstream file1;
+         string str;
+         file1.open("C:\\Users\\Aditya\\Desktop\\Programing files all\\C++ Final Codes\\text.txt");
+         while(getline(file1,str))
+         cout<<str;
+         file1.close();
+
+
+         // for deleting the file 
+         int status=remove("C:\\Users\\Aditya\\Desktop\\Programing files all\\C++ Final Codes\\text.txt");
+         if(status==0)
+         cout<<"File Removed Successfullt"<<endl;
+         else
+         cout<<"Failed to Delete the File "<<endl;
 
     return 0;
 }  

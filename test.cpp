@@ -1548,7 +1548,48 @@ int Student::count=0;
 // void takeMarks(Mayur mayuyr,Aditya aditya){
 //     cout<<"Sandesh after taking aditya's and mayur's mark's"<<mayuyr.marks+aditya.marks<<endl;
 // }
+class Person{
+    public:
+    string name;
+    int age;
+    Person(string name,int age){
+        this->name=name;
+        this->age=age;
+    }
+    Person(){
 
+    }
+    virtual void greetings(){
+        cout<<"Greetings,I am Optimus Prime"<<endl;
+    }
+};
+class Stud : public Person{
+public:
+string sid;
+int rollNo;
+Stud(string name,int age,string sid,int rollNo):Person(name,age){
+    this->sid=sid;
+    this->rollNo=rollNo;
+}
+Stud(){
+
+}
+void displayInfo(){
+    cout<<"The Sid of the Student is:"<<this->sid<<endl;
+    cout<<"The Name of the Student is:"<<this->name<<endl;
+    cout<<"The Roll no of the Student is:"<<this->rollNo<<endl;
+    cout<<"The Age of the Student is:"<<this->age<<endl;
+    cout<<endl;
+}
+void greetings(){
+    cout<<"Greetings,I am son of Optimus Prime"<<endl;
+}
+};
+
+int* sortArray(int arr[],int no){
+    sort(arr,arr+no);
+    return arr;
+}
 int main()
 {
     // int no,key;
@@ -1883,11 +1924,31 @@ int main()
     // Aditya aditya;
     // Mayur mayur;
     // cout<<takeMarks(aditya,mayur)<<endl;
-        Student aditya = Student("2021FHCO042","Aditya",54,'A',7.4);
-        Student mayur = Student(aditya);
-        aditya.displayInfoStudent();
-        *aditya.cgpaPtr=10.0;
-        aditya.displayInfoStudent();
-        mayur.displayInfoStudent();
+        // Student aditya = Student("2021FHCO042","Aditya",54,'A',7.4);
+        // Student mayur = Student(aditya);
+        // aditya.displayInfoStudent();
+        // *aditya.cgpaPtr=10.0;
+        // aditya.displayInfoStudent();
+        // mayur.displayInfoStudent();
+
+        // Stud stud = Stud("Aditya",22,"2021FHCO042",54);
+        // stud.displayInfo();
+
+        // Stud s1;
+        // s1.greetings();
+        // Person p1;
+        // p1.greetings();
+        // vector<int> array={100,90,80,70,60,50,40,30,20,10};
+        // int* a = sort(array);
+        // for(int i=0;i<array.size();i++)
+        // cout<<a[i]<<" ";
+
+        int* a = new int[10];
+        for(int i=0;i<10;i++)
+        cin>>a[i];
+        int *b=sortArray(a,10);
+        for(int i=0;i<10;i++)
+        cout<<b[i]<<" ";
+
     return 0;
 }  

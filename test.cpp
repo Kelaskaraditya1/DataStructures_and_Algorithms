@@ -1394,6 +1394,160 @@ int countParanthesis(string str){
         }
         return true;
     }
+        struct student{
+            public:
+            string sid,name;
+            int rollno;
+            char div;
+        };
+
+        void printStudentDetails(struct student array[],int no){
+            for(int i=0;i<no;i++){
+                cout<<"The Sid of "<<i+1<<"th the Student is:"<<array[i].sid<<endl;
+                cout<<"The name of "<<i+1<<"th the Student is:"<<array[i].name<<endl;
+                cout<<"The rollno of "<<i+1<<"th the Student is:"<<array[i].rollno<<endl;
+                cout<<"The Div of "<<i+1<<"th the Student is:"<<array[i].div<<endl;
+                cout<<endl;
+
+            }
+        }
+        int fiboRecursion(int n){
+            if(n==1)
+            return 0;
+            else if(n==2)
+            return 1;
+            else
+            return fiboRecursion(n-1)+fiboRecursion(n-2);
+        }
+        int factorialRecursion(int no){
+    if(no==0||no==1)
+    return 1;
+    else
+    return no*factorialRecursion(no-1);
+} 
+void reverseNo(int &a,int &b){
+    int temp=a;
+    a=b;
+    b=temp;
+}
+class BinaryNo{
+    public:
+    bool checkBinary(string no){
+        for(int i=0;i<no.length();i++){
+            if(isdigit(no[i])){
+                int n=no[i]-'0';
+                if(n!=0&&n!=1)
+                return false;
+            }
+        }
+        return true;
+    }
+    string onesCompliment(string no){
+        string ans;
+        for(int i=0;i<no.length();i++){
+            if(isdigit(no[i])){
+                if(no[i]=='0')
+                ans.push_back('1');
+                else
+                ans.push_back('0');
+            }
+        }
+        return ans;
+    }
+    string twosCompliment(string &str){
+        int carry=1;
+        for(int i=str.length()-1;i>=0;i--){
+            if(str[i]=='1'&&carry==1)
+            str[i]='0';
+            else if(str[i]=='0'&&carry==1){
+                str[i]='1';
+                carry=0;
+            }
+        }
+        return str;
+    }
+
+
+};
+class Student{
+    public:
+    string sid,name;
+    int rollNo;
+    char div;
+    double* cgpaPtr;
+    static int count;
+    // Student(string sid_,string name_,int rollNo_,char div_){
+    //     sid=sid_;
+    //     name=name_;
+    //     rollNo=rollNo_;
+    //     div=div_;
+    // }
+    Student(string sid,string name,int rollNo,char div,double cgpa){
+        this->sid=sid;
+        this->name=name;
+        this->rollNo=rollNo;
+        this->div=div;
+        this->cgpaPtr=new double;
+        *cgpaPtr=cgpa;
+
+    }
+    Student(const Student &s){
+        this->sid=s.sid;
+        this->name=s.name;
+        this->rollNo=s.rollNo;
+        this->div=s.div;
+        this->cgpaPtr=new double;
+        *this->cgpaPtr=*s.cgpaPtr;
+    }
+    Student(){
+
+    }
+    static void displayInfo(Student array[],int no){
+        for(int i=0;i<no;i++){
+            cout<<"The Sid of the Student is: "<<array[i].sid<<endl;
+            cout<<"The Name of the Student is: "<<array[i].name<<endl;
+            cout<<"The rollNo of the Student is: "<<array[i].rollNo<<endl;
+            cout<<"The Div of the Student is: "<<array[i].div<<endl;
+            cout<<endl;
+        }
+    }
+    static void  printCount(){
+        cout<<"There are "<<count+1<<"Students registered till now"<<endl;
+    }
+     void displayInfoStudent(){
+            cout<<"The Sid of the Student is: "<<this->sid<<endl;
+            cout<<"The Name of the Student is: "<<this->name<<endl;
+            cout<<"The rollNo of the Student is: "<<this->rollNo<<endl;
+            cout<<"The Div of the Student is: "<<this->div<<endl;
+            cout<<"The Cgpa of the Student is:"<<*cgpaPtr;
+            cout<<endl;
+    }
+};
+class Point{
+public:
+int x,y;
+static double distance(Point p1,Point p2){
+    double distance,dx,dy;
+    dx=pow((p2.x-p1.x),2);
+    dy=pow((p2.y-p1.y),2);
+    distance=pow((dx+dy),0.5);
+    return distance;
+}
+};
+int Student::count=0;
+// class Aditya{
+//     private:
+//     int marks=10;
+//     friend void takeMarks(Mayur mayur,Aditya aditya);
+// };
+// class Mayur{
+//     private:
+//     int marks=20;
+//     friend void takeMarks(Mayur mayur,Aditya aditya);
+// };
+// void takeMarks(Mayur mayuyr,Aditya aditya){
+//     cout<<"Sandesh after taking aditya's and mayur's mark's"<<mayuyr.marks+aditya.marks<<endl;
+// }
 
 int main()
 {
@@ -1586,9 +1740,154 @@ int main()
     // }
     // for(auto it:maxMarks)
     // cout<<it<<" ";
-    cout<<specialString("adaoas");
-    cout<<specialString("madam");
-    cout<<specialString("ababa");
-    cout<<specialString("bssbs");
+    // cout<<specialString("adaoas");
+    // cout<<specialString("madam");
+    // cout<<specialString("ababa");
+    // cout<<specialString("bssbs");
+
+
+    // int days;
+    // cin>>days;
+    // switch(days){
+    //     case 1:
+    //     cout<<"Monday"<<endl;
+    //     break;
+    //     case 2:
+    //     cout<<"Tuesday"<<endl;
+    //     break;
+    //     case 3:
+    //     cout<<"Wednesday"<<endl;
+    //     break;
+    //     case 4:
+    //     cout<<"Thursday"<<endl;
+    //     break;
+    //     case 5:
+    //     cout<<"Friday"<<endl;
+    //     break;
+    //     case 6:
+    //     cout<<"Saturday"<<endl;
+    //     break;
+    //     case 7:
+    //     cout<<"Sunday"<<endl;
+    //     break;
+    // }
+    // int i=0;
+    // switch(days){
+    //     case 1:{
+    //         cout<<"Monday"<<endl;
+    //         i++;
+    //     }break;
+    //     case 2:{
+    //         cout<<"Tuesday"<<endl;
+    //         i++;
+    //     }break;
+    //     case 3:{
+    //         cout<<"Wednesday"<<endl;
+    //         i++;
+    //     }break;
+    //     case 4:{
+    //         cout<<"Thursday"<<endl;
+    //         i++;
+    //     }break;
+    //     case 5:{
+    //         cout<<"Friday"<<endl;
+    //         i++;
+    //     }break;
+    //     case 6:{
+    //         cout<<"Saturday"<<endl;
+    //         i++;
+    //     }break;
+    //     default:{
+    //         cout<<"Sunday"<<endl;
+    //         i++;
+    //     }break;
+    // }
+    // cout<<i<<endl;
+
+    // struct student array[200];
+    // int no;
+    // cin>>no;
+    // for(int i=0;i<no;i++){
+    //     cout<<"Enter the Sid of the Student"<<endl;
+    //     cin>>array[i].sid;
+    //     cout<<"Enter the name of the Student"<<endl;
+    //     cin>>array[i].name;
+    //     cout<<"Enter the Roll no of the Student"<<endl;
+    //     cin>>array[i].rollno;
+    //     cout<<"Enter the div of the Student"<<endl;
+    //     cin>>array[i].div;
+    //     cout<<endl;
+    // }
+    // printStudentDetails(array,no);
+    // int no;
+    // cin>>no;
+    // int a=0,b=1,c;
+    // if(no==1)
+    // cout<<a<<endl;
+    // else if(no==2)
+    // cout<<a<<" "<<b<<endl;
+    // else{
+    //     cout<<a<<" "<<b<<" ";
+    //     for(int i=3;i<=no;i++){
+    //         c=a+b;
+    //         cout<<c<<" ";
+    //         a=b;
+    //         b=c;
+    //     }
+    // }
+
+    // for(int i=1;i<=no;i++)
+    // cout<<fiboRecursion(i)<<" ";
+    // cout<<factorialRecursion(no);
+    // int a,b;
+    // cin>>a>>b;
+    // cout<<"Before Reverseing:"<<a<<" "<<b<<endl;
+    // reverseNo(a,b);
+    // cout<<"After Reversing:"<<a<<" "<<b<<endl;
+    // string no;
+    // cin>>no;
+    // BinaryNo binary =  BinaryNo();
+    // if(binary.checkBinary(no))
+    // cout<<"The no is Binary "<<endl;
+    // else
+    // cout<<"No is not Binary"<<endl;
+    // cout<<binary.onesCompliment(no)<<endl;
+    // cout<<binary.twosCompliment(no);
+
+
+    // Student array[200];
+    // int no;
+    // cin>>no;
+    // for(int i=0;i<no;i++){
+    //     cout<<"Enter the Sid of the Student"<<endl;
+    //     cin>>array[i].sid;
+    //     cout<<"Enter the name of the Student"<<endl;
+    //     cin>>array[i].name;
+    //     cout<<"Enter the RollNo of the Student"<<endl;
+    //     cin>>array[i].rollNo;
+    //     cout<<"Enter the Div of the Student"<<endl;
+    //     cin>>array[i].div;
+    //     cout<<endl;
+
+    //     Student::count++;
+    // }
+    // Student::displayInfo(array,no);
+    // Student::printCount();
+
+    // Point p1,p2;
+    // p1.x=5;
+    // p1.y=5;
+    // p2.x=10;
+    // p2.y=10;
+    // cout<<Point::distance(p1,p2);
+    // Aditya aditya;
+    // Mayur mayur;
+    // cout<<takeMarks(aditya,mayur)<<endl;
+        Student aditya = Student("2021FHCO042","Aditya",54,'A',7.4);
+        Student mayur = Student(aditya);
+        aditya.displayInfoStudent();
+        *aditya.cgpaPtr=10.0;
+        aditya.displayInfoStudent();
+        mayur.displayInfoStudent();
     return 0;
-}   
+}  

@@ -623,6 +623,66 @@ using namespace std;
         }
 
     }
+    char firstNonRepeated(string str){
+        map<char,int> map;
+        for(int i=0;i<str.length();i++)
+        map[str[i]]++;
+        for(int i=0;i<str.length();i++){
+            if(map[str[i]]==1)
+            return str[i];
+        }
+    }
+    int majority(vector<int> arr){
+        int count=0,element,count1=0;
+        for(int i=0;i<arr.size();i++){
+            if(count==0){
+                element=arr[i];
+                count=1;
+            }else if(arr[i]==element)
+            count++;
+            else
+            count--;
+        }
+        for(int i=0;i<arr.size();i++){
+            if(arr[i]==element)
+            count1++;
+        }
+        if(count1>=(arr.size()/2))
+        return element;
+    }
+void rotatematrix(vector<vector<int>> &arr) {
+    // Step 1: Transpose the matrix
+    for (int i = 0; i < arr.size(); i++) {
+        for (int j = i; j < arr.size(); j++) { // Start j from i
+            int tmp = arr[i][j];
+            arr[i][j] = arr[j][i];
+            arr[j][i] = tmp;
+        }
+    }
+    
+    // Step 2: Reverse each row for 90-degree clockwise rotation
+    for (int i = 0; i < arr.size(); i++) {
+        reverse(arr[i].begin(), arr[i].end()); // Use the reverse function from <algorithm>
+    }
+}
+int longestString(string str){
+    int length=0,count=0;
+    string ans="";
+    for(int i=0;i<str.length();i++){
+        if(ans.empty()||ans.find(str[i])==string::npos){
+        ans.push_back(str[i]);
+        count++;
+        }else{
+            length=max(length,count);
+            count=1;
+            ans="";
+            ans.push_back(str[i]);
+        }   
+    }
+    length=max(length,count);
+    return length;
+}
+
 int main()
 {
 
@@ -750,12 +810,32 @@ int main()
     // vector<int> array={-2, 1, -3, 4, -1, 2, 1, -5, 4};
     // cout<<kadaneAlgo(array);
 
-    vector<vector<int>> arr={{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    rotateMatrix(arr);
-    for(int i=0;i<arr.size();i++){
-        for(int j=0;j<arr[0].size();j++)
-        cout<<arr[i][j]<<" ";
-        cout<<endl;
-    }
+    // vector<vector<int>> arr={{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    // rotateMatrix(arr);
+    // for(int i=0;i<arr.size();i++){
+    //     for(int j=0;j<arr[0].size();j++)
+    //     cout<<arr[i][j]<<" ";
+    //     cout<<endl;
+    // }
+
+    // string str="aditya";
+    // cout<<firstNonRepeated(str);
+
+    // vector<int> arr={2, 2, 1, 1, 1,1,1,1,1 ,2, 2};
+    // cout<<majority(arr);
+
+    // vector<vector<int>> arr(3,vector<int> (3));
+    // for(int i=0;i<3;i++){
+    //     for(int j=0;j<3;j++)
+    //     cin>>arr[i][j];
+    // }
+    // rotateMatrix(arr);
+    //                         for(int i=0;i<arr.size();i++){
+    //                             for(int j=0;j<arr[0].size();j++)
+    //                             cout<<arr[i][j]<<" ";
+    //                             cout<<endl;
+    //                         }
+
+    cout<<longestString("abcdefg");
     return 0;
 }

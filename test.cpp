@@ -2023,20 +2023,51 @@ int main()
 
         // for reading the data from the file.
 
-         ifstream file1;
-         string str;
-         file1.open("C:\\Users\\Aditya\\Desktop\\Programing files all\\C++ Final Codes\\text.txt");
-         while(getline(file1,str))
-         cout<<str;
-         file1.close();
+        //  ifstream file1;
+        //  string str;
+        //  file1.open("C:\\Users\\Aditya\\Desktop\\Programing files all\\C++ Final Codes\\text.txt");
+        //  while(getline(file1,str))
+        //  cout<<str;
+        //  file1.close();
 
 
          // for deleting the file 
-         int status=remove("C:\\Users\\Aditya\\Desktop\\Programing files all\\C++ Final Codes\\text.txt");
-         if(status==0)
-         cout<<"File Removed Successfullt"<<endl;
-         else
-         cout<<"Failed to Delete the File "<<endl;
+        //  int status=remove("C:\\Users\\Aditya\\Desktop\\Programing files all\\C++ Final Codes\\text.txt");
+        //  if(status==0)
+        //  cout<<"File Removed Successfullt"<<endl;
+        //  else
+        //  cout<<"Failed to Delete the File "<<endl;
+
+        int rows;
+        cin>>rows;
+        int count=1;
+        for(int i=0;i<rows;i++){
+            for(int k=0;k<rows-(i+1);k++)
+            cout<<" ";
+            int j=0;
+            count=1;
+            while(j<=i){
+                cout<<count++;
+                j++;
+            }
+            count=count-2;
+            while(j<2*i+1){
+                cout<<count--;
+                j++;
+            }
+            cout<<endl;
+        }
 
     return 0;
 }  
+
+
+/*
+        ***1
+        **121
+        *12321
+        1234321
+
+
+
+*/

@@ -2038,23 +2038,32 @@ int main()
         //  else
         //  cout<<"Failed to Delete the File "<<endl;
 
+        // int rows;
+        // cin>>rows;
+        // int count=1;
+        // for(int i=0;i<rows;i++){
+        //     for(int k=0;k<rows-(i+1);k++)
+        //     cout<<" ";
+        //     int j=0;
+        //     count=1;
+        //     while(j<=i){
+        //         cout<<count++;
+        //         j++;
+        //     }
+        //     count=count-2;
+        //     while(j<2*i+1){
+        //         cout<<count--;
+        //         j++;
+        //     }
+        //     cout<<endl;
+        // }
         int rows;
         cin>>rows;
-        int count=1;
         for(int i=0;i<rows;i++){
-            for(int k=0;k<rows-(i+1);k++)
+            for(int k=0;k<rows-i;k++)
             cout<<" ";
-            int j=0;
-            count=1;
-            while(j<=i){
-                cout<<count++;
-                j++;
-            }
-            count=count-2;
-            while(j<2*i+1){
-                cout<<count--;
-                j++;
-            }
+            for(int j=0;j<i+1;j++)
+            cout<<"* ";
             cout<<endl;
         }
 

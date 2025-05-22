@@ -2057,15 +2057,23 @@ int main()
         //     }
         //     cout<<endl;
         // }
-        int rows;
-        cin>>rows;
-        for(int i=0;i<rows;i++){
-            for(int k=0;k<rows-i;k++)
-            cout<<" ";
-            for(int j=0;j<i+1;j++)
-            cout<<"* ";
-            cout<<endl;
-        }
+        // int rows;
+        // cin>>rows;
+        // for(int i=0;i<rows;i++){
+        //     for(int k=0;k<rows-i;k++)
+        //     cout<<" ";
+        //     for(int j=0;j<i+1;j++)
+        //     cout<<"* ";
+        //     cout<<endl;
+        // }
 
+        int a = 10;
+        int b = 20;
+
+        a=a^b;
+        b=a^b;
+        a=a^b;
+
+        cout<<a<<" "<<b; 
     return 0;
 }  

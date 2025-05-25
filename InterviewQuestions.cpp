@@ -683,6 +683,20 @@ int longestString(string str){
     return length;
 }
 
+int reverseNumber(int n){
+    int org = n;
+    int rev = 0;
+    while(n>0){
+
+        int digit = n%10;
+        rev = rev*10 + digit;
+        n/=10;
+
+    }
+
+    return rev;
+}
+
 int main()
 {
 
@@ -836,7 +850,10 @@ int main()
     //                             cout<<endl;
     //                         }
 
-    cout<<longestString("abcdefg");
+    // cout<<longestString("abcdefg");
+
+    cout<<reverseNumber(541);
+    
 
     return 0;
 }

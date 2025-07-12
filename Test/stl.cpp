@@ -17,6 +17,27 @@ int upperBound(int key,vector<int> &vector){
     }
     return -1;
 }
+
+bool customComparator(pair<int,int> &p1,pair<int,int> &p2){
+
+    if(p1.second<p2.second)
+        return true;
+    else
+        return false;
+
+}
+
+bool customComprator2(pair<int,int> &p1,pair<int,int> &p2){
+    if(p1.second<p2.second)
+        return true;
+    else if(p1.second>p2.second)
+        return false;
+    if(p1.first<p2.first)
+    return true;
+    else
+    return false;
+}
+
 int main(){
     cout<<"I am Ironman"<<endl;
 
@@ -305,7 +326,7 @@ int main(){
         // initialization:
         // priority_queue<int> pq1;  // stores maximum element on the top
 
-        // priority_queue<int,vector<int>,greater<int>> pq2;
+        // priority_queue<int,vector<int>,greater<int>()> pq2;
 
         // int no;
         // cout<<"Enter number of elements in priority queue: ";
@@ -409,6 +430,55 @@ int main(){
             /*lowerBound and upperBound:
             lower bound of n is the the same value or a value which is just greater than n lowerBound(n)=n or val>n (greater or equal)
             upper bound of n is the value just greater than n (strictly greater) */ 
+
+            // set<int> set1;
+            // int no;
+            // cin>>no;
+            // for(int i=0;i<no;i++){
+            //     int val;
+            //     cin>>val;
+            //     set1.insert(val);
+            // }
+
+            // vector<int> vector1 ={1,1,1,2,3,3,4,4,4,4,4,5,5,5,5,6,7,7,7,8,9,9,9,10,10,10};
+            // for(int i=0;i<vector1.size();i++)
+            //     set1.insert(vector1[i]);
+            // cout<<*set1.lower_bound(11)<<" "<<endl;
+            // cout<<*set1.upper_bound(10);
+            
+
+            // Utility functions:
+
+            // for Sorting Stl datastructures:
+
+            // int arr[]={10,5,9,4,3,2,7,1,8};
+            // sort(arr,arr+9,greater<int>());
+            // for(auto it:arr)
+            //     cout<<it<<" ";
+
+            // cout<<endl;
+
+            // vector<int> vector = {10,5,9,4,3,2,7,1,8};
+            // sort(vector.begin(),vector.end(),greater<int>());
+            // for(auto it:vector)
+            //     cout<<it<<" ";
+
+            // Custom Comprator Function:
+
+            vector<pair<int,int>> vector2 ={{1,2},{10,9},{4,5},{11,15},{2,3}};
+            sort(vector2.begin(),vector2.end(),customComparator);
+
+            vector<pair<int,int>> vector3 ={{3,1},{7,1},{2,1},{5,2}};
+            sort(vector3.begin(),vector3.end(),customComprator2);
+
+            for(auto it:vector3){
+                cout<<it.first<<" "<<it.second<<" ";
+                cout<<endl;
+            }
+            
+            
+
+            
 
 
 

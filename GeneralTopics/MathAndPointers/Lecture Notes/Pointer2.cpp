@@ -15,6 +15,12 @@ void callByRefrence(int* &ptr){
     ptr++;
 }
 
+void square(int *ptr){
+    int a = 9;
+    ptr=&a;
+    *ptr=(*ptr)*(*ptr);
+}
+
 int main(){
     cout<<"I am Ironman"<<endl;
 
@@ -48,19 +54,26 @@ int main(){
     //     for(int val:arr)
     //     cout<<val<<" ";
 
-    int a = 100;
+    // int a = 100;
 
-    int *ptr=&a;
+    // int *ptr=&a;
 
-    cout<<ptr<<endl;
-    cout<<&ptr<<endl;
-    cout<<*ptr<<endl;
+    // cout<<ptr<<endl;
+    // cout<<&ptr<<endl;
+    // cout<<*ptr<<endl;
 
-    callByValue(ptr);
+    // callByValue(ptr);
 
-    cout<<ptr<<endl;
-    cout<<&ptr<<endl;
-    cout<<*ptr<<endl;
+    // cout<<ptr<<endl;
+    // cout<<&ptr<<endl;
+    // cout<<*ptr<<endl;
+
+    int a = 10;
+
+    cout<<"Before Square: "<<a<<endl;
+    square(&a);
+    cout<<"After Square: "<<a<<endl;
+
 
 
 

@@ -33,7 +33,7 @@ int sieveAlgorithm(int no){
         return 0;
 
     vector<bool> vector(no,true);
-    vector[0]=vector[1]=true;
+    vector[0]=vector[1]=false;
 
     for(int i=2;i<no;i++){
         if(vector[i]){

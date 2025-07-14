@@ -43,10 +43,39 @@ int main(){
     // cout<<"The address of ptrToPtr is:"<<&ptrToPtr<<endl;
     // cout << "Dereferencing ptrToPtr to get value of b: " << *(*ptrToPtr) << endl;
 
-    int a=10;
-    int *ptr=&a;
-    *ptr=*ptr+1;
-    cout<<a<<endl;
+    // int a=10;
+    // int *ptr=&a;
+    // *ptr=*ptr+1;
+    // cout<<a<<endl;
+
+    // Pointer to Char Array
+
+    // char array []="Aditya";
+    // char *ptr = array;
+    // cout<<array<<endl;
+    // cout<<ptr<<endl;
+    // cout<<*ptr;
+
+    // Dynamic memory allocation.
+
+    // char array[]={'a','d','i','t','y','a'};
+    // char *cptr = array;
+    // cout<<*cptr;
+
+    /*Array of Pointers:it contains an array which contains address of each element like arr[0]=&nums[0] 
+    and for accessing the element *arr[0], *arr[0]->nums[0]->0th element
+    */ 
+
+    int arr[]={1,2,3,4,5,6,7,8,9,10};
+
+    int *(ptrToArray[100]);
+
+    for(int i=0;i<10;i++)
+        ptrToArray[i]=&arr[i];
+
+    for(int i=0;i<10;i++)
+        cout<<*ptrToArray[i]<<" ";
+
 
 
     return 0;

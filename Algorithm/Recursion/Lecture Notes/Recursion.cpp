@@ -1,6 +1,0 @@
-#include<bits/stdc++.h>
-using namespace std;
-int main(){
-    cout<<"I am Ironman"<<endl;
-    return 0;
-}
